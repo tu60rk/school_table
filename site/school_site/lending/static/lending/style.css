@@ -1,8 +1,519 @@
-.landing-section {
+
+/* start setting of html tags */
+body {
+    background-color: rgba(60, 100, 177, 0.10);
+}
+
+html{
+scroll-behavior: smooth;
+}
+
+h1{
+    font-size: 44px;
+}
+
+button{
+    border-style: solid;
+    border-width: 1px;
+}
+
+input{
+    border: none;
+}
+
+::placeholder{
+    color: rgba(0, 0, 0, 0.2);
+}
+
+input[type="number"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+/* end setting of html tags */
+
+.landing-main-start {
   min-height: 100vh;
-  width: 100vw;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+
+.landing-section-content {
+  width: 830px;
+  padding: 100px;
+  text-align: center;
+  border-radius: 50%;
+  box-shadow:  0 0 0 10px #3C64B1, 0 0 0 20px #5A80C9, 0 0 0 30px #87A5DE ;
+}
+
+.brand{
+    text-align: center;
+}
+
+.landing-main-text{
+    text-align: center;
+    font-size: 16px;
+    color: 737B7D;
+    margin-bottom: 5%;
+}
+
+.sub-btn{
+    padding-left: 18px;
+    padding-right: 18px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    margin-right: 30px;
+    font-size: 14px;
+    border-radius: 3px;
+    font-weight: bold;
+    text-decoration: none;
+}
+.sub-btn:hover{
+    cursor: pointer;
+}
+
+.act-btn{
+    background-color: #3C64B1;
+    border-color: #3C64B1;
+    color: #ffffff;
+}
+
+.pas-btn{
+    background-color: rgba(60, 100, 177, 0.05);
+    color: #3C64B1;
+    border-color: #3C64B1;
+}
+
+/* end first page */
+
+/* Section of choose subject */
+.landing-choose-teachers, 
+.landing-choose-subjects,
+.landing-choose-classes,
+.landing-choose-courses,
+.landing-choose-option,
+.landing-choose-finish
+{
+    width: 65%;
+    display: inline-block;
+    margin-left: 5%;
+    margin-top: 5%;
+}
+
+.landing-nav-right {
+    width: 25%;
+    position: sticky;
+    top: 0;
+    left: 80%;
+    min-height: 100vh;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 3%;
+}
+
+.icon-info{
+    width: 20px;
+    height: 20px;
+}
+
+.icon-info:hover {
+    cursor: pointer;
+}
+
+.help-button{
+    margin-bottom: 20px;
+}
+
+.boxer {
+    max-height: 500px;
+    min-height: 500px;
+    overflow: scroll;
+}
+
+.item{
+    margin-bottom: 30px;
+    /*width: 90%;*/
+    display: flex;
+    align-items: center;
+}
+.input-subject{
+    display: flex;
+    background-color: rgba(60, 100, 177, 0.5);
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+    align-items: center;
+}
+
+.input-subject-psevdo,
+.input-teacher-psevdo,
+.input-classes-psevdo,
+.input-courses-psevdo
+{
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    border: dashed rgba(115, 123, 125, 0.06);
+    height: 40px;
+    border-radius: 10px;
+    background-color: rgba(115, 123, 125, 0.06);
+    padding-right:45px;
+}
+
+.input-subject-psevdo{
+    width: 50%;
+}
+
+.input-teacher-psevdo{
+    width: 90%;
+}
+
+.input-classes-psevdo{
+    width: 90%;
+}
+
+.input-courses-psevdo{
+    width: 45.5%;
+}
+
+.subject-name {
+    width: 300px;
+    background-color: rgba(60, 100, 177, 0.01);
+    color: black;
+    border-bottom: 1px solid black;
+    font-size: 20px;
+    margin-right: 15%;
+}
+
+.number-input {
+    display: inline-block;
+}
+
+.number-input button,
+.number-input-max-lessons button, /* sector class */
+.number-input-study-day button,
+.number-input-max-course button
+{
+    outline: none;
+    -webkit-appearance: none;
+    background-color: black;
+    width: 15px;
+    height: 10px;
+    clip-path: polygon(100% 0, 50% 100%, 0 0);
+    border: none;
+    cursor: pointer;
+}
+
+.number-input button.plus, 
+.number-input-max-lessons button.plus, /* sector class */
+.number-input-study-day button.plus,
+.number-input-max-course button.plus
+{
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    margin-bottom: 4px;
+}
+
+.subject-cost {
+    display: inline-block;
+    background-color: rgba(60, 100, 177, 0.01);
+    color: black;
+    border: none;
+    text-align: center;
+    font-size: 20px;
+}
+
+.description-text{
+    font-size: 20px;
+    color: black;
+}
+
+.counter
+{
+  display: inline-block;
+  vertical-align: middle;
+  width: 40px;
+  height: 40px;
+}
+
+.counter-add-circle {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    background: rgba(60, 100, 177, 0.12);
+    border-radius: 50%;
+}
+
+.counter-add-plus {
+  position: relative;
+  top: 10px;
+  left: 10px;
+  width: 10px;
+  height: 10px;
+  background-color: #3C64B1;
+  clip-path: polygon(40% 0%,
+                     40% 40%,
+                     0% 40%,
+                     0% 60%,
+                     40% 60%,
+                     40% 100%,
+                     60% 100%,
+                     60% 60%,
+                     100% 60%,
+                     100% 40%,
+                     60% 40%,
+                     60% 0%
+                     );
+}
+
+.counter:hover,
+.counter-add-circle:hover
+{
+  cursor: pointer;
+}
+
+/*.counter-add-plus:hover,*/
+.counter-add-circle:hover{
+    background: rgba(60, 100, 177, 0.5);
+}
+
+.trash {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    top: -3px;
+    left: 4px;
+}
+
+svg.trash:hover path{
+    fill: #B52222;
+}
+
+.landing-form
+{
+    width : 100%;
+}
+
+.items{
+    width : 100%;
+}
+
+.nav-item{
+    position: sticky;
+    margin-bottom: 50px;
+}
+
+.nav-p{
+    display: inline-block;
+    margin-left: 20px;
+    color: #737B7D;
+    font-size: 25px;
+}
+.nav-circle {
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    vertical-align: middle;
+    background: rgba(115, 123, 125, 0.38);
+    color: white;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.nav-circle p{
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    margin-top:7px;
+}
+
+.nav-item-active{
+    background: #373F41;
+}
+.nav-item-active-p{
+    color: #373F41;
+}
+
+.nav-line {
+    position: relative;
+    height: 80px;
+    border-left: 1px solid #737B7D;
+    left: 15px;
+    top: -15px;
+}
+
+.nav-item-one{
+    top: 0px;
+}
+.nav-item-two{
+    top: 75px;
+}
+.nav-item-three{
+    top: 150px;
+}
+.nav-item-four{
+    top: 225px;
+}
+.nav-item-five{
+    top: 300px;
+}
+.nav-item-six{
+    top:375px;
+}
+
+.btn-next {
+    margin-top: 30px;
+}
+
+/* section teacher start */
+
+.teacher-name-first,
+.teacher-name-second,
+.teacher-name-third
+{
+    width: 150px;
+    background-color: rgba(60, 100, 177, 0.01);
+    color: black;
+    border-bottom: 1px solid black;
+    font-size: 20px;
+    margin-right: 5%;
+}
+
+.input-teacher{
+    display: flex;
+    background-color: rgba(60, 100, 177, 0.5);
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+    width: 90%;
+}
+
+.list-of-subjects,
+.list-of-teachers
+{
+    overflow: scroll;
+    width: 200px;
+    background-color: rgba(60, 100, 177, 0.01);
+    color: black;
+    font-size: 20;
+    border: none;
+    cursor: pointer;
+    border-bottom: 1px solid black;
+    margin-right: 35px;
+}
+
+/* sector class start */
+.input-classes{
+    display: flex;
+    background-color: rgba(60, 100, 177, 0.5);
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+    width: 90%;
+    align-items: center;
+}
+
+.classes-name,
+.classes-name-number,
+.classes-name-letter
+{
+    width: 50px;
+    background-color: rgba(60, 100, 177, 0.01);
+    color: black;
+    border-bottom: 1px solid black;
+    font-size: 20px;
+    margin-right: 5%;
+    text-align: center;
+}
+
+.classes-study-day,
+.classes-max-lessons,
+.courses-max-course
+{
+    display: inline-block;
+    background-color: rgba(60, 100, 177, 0.01);
+    color: black;
+    border: none;
+    text-align: center;
+    font-size: 20px;
+}
+
+.number-input-max-lessons,
+.number-input-study-day
+{
+    display: inline-block;
+    margin-right: 20px;
+}
+/* sector class end */
+
+/* sector courses start */
+.avaliable-classes{
+    display: flex;
+    justify-content: left;
+    margin-bottom: 30px;
+}
+
+.class-btn{
+    width: 40px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-right: 15px;
+    font-size: 14px;
+    border-radius: 3px;
+    font-weight: bold;
+    text-decoration: none;
+    display: flex;
+    cursor: pointer;
+    justify-content: center;
+}
+
+.class-btn:focus{
+    color: white;
+    background-color: rgba(60, 100, 177, 0.5);
+}
+
+.standart-p{
+    font-size: 20px;
+    color: #737B7D;
+}
+
+.input-courses{
+    display: flex;
+    background-color: rgba(60, 100, 177, 0.5);
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+    align-items: center;
+}
+
+.unvis-box{
+    visibility: hidden;
+}
+
+.box{
+    position: absolute;
+    overflow: scroll;
+    max-height: 500px;
+}
+
+.vis-box{
+    visibility: visible;
 }
