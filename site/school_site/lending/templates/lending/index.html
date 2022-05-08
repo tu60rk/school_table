@@ -10,7 +10,7 @@
     <a name="start-main"></a>
     <section class="landing-main-start">
         <div class="landing-section-content">
-          <h1 class="brand">Построй школьное расписание в несколько кликов!</h1>
+          <h1 class="brand">Школьное расписание</br>в несколько кликов!</h1>
           <p class="landing-main-text">
                    Используя различные алгоритмы, Вы сможете быстро получить расписание в нужном Вам виде. </br>Быстро. Просто. Удобно.
           </p>
@@ -38,9 +38,10 @@
                 </div>
                 <div class="boxer">
                     <form id="input-subject" class="landing-form">
+                        {% csrf_token %}
                         <div id="input-subject-0" class="item">
                             <div class="input-subject">
-                                    <input type="text" class="subject-name" value="" placeholder="Название предмета" pattern="[А-Яа-я ]{20}" required>
+                                    <input type="text" class="subject-name" value="" placeholder="Название предмета" pattern="[А-Яа-я ]" required>
                                     <span class="description-text">Сложность:</span>
                                     <input type="number" class="subject-cost" value="1" min="1" max="2" step="0.5" required>
                                     <div class="number-input">
@@ -60,18 +61,18 @@
                     </div>
                 </div>
                 <div class="btn-next">
-                    <a href="#teachers" class="sub-btn act-btn">Следующий этап</a>
-                    <a href="#start-main" class="sub-btn pas-btn">Вернуться назад</a>
+                    <a href="#start-main" class="sub-btn pas-btn">назад</a>
+                    <a href="#teachers" class="sub-btn act-btn">далее</a>
                 </div>
             </div>
         </section>
         <div class="landing-nav-right">
-                <div class="nav-item nav-item-one"><div class="nav-circle nav-item-active"><p>1</p><div class="nav-line nav-line-one"></div></div><p class="nav-p nav-item-active-p">Предметы</p></div>
-                <div class="nav-item nav-item-two"><div class="nav-circle"><p>2</p><div class="nav-line nav-line-two"></div></div><p class="nav-p">Преподаватели</p></div>
-                <div class="nav-item nav-item-three"><div class="nav-circle"><p>3</p><div class="nav-line nav-line-three"></div></div><p class="nav-p">Классы</p></div>
-                <div class="nav-item nav-item-four"><div class="nav-circle"><p>4</p><div class="nav-line nav-line-four"></div></div><p class="nav-p">Курсы</p></div>
-                <div class="nav-item nav-item-five"><div class="nav-circle"><p>5</p><div class="nav-line nav-line-five"></div></div><p class="nav-p">Дополнительные настройки</p></div>
-                <div class="nav-item nav-item-six"><div class="nav-circle"><p>6</p><div class="nav-line nav-line-six"></div></div><p class="nav-p">Результат</p></div>
+                <div class="nav-item nav-item-one"><div class="nav-circle nav-item-active"><p>1</p><div class="nav-line nav-line-one"></div></div><a href="#subjects" class="nav-p nav-item-active-p">Предметы</a></div>
+                <div class="nav-item nav-item-two"><div class="nav-circle"><p>2</p><div class="nav-line nav-line-two"></div></div><a href="#teachers" class="nav-p">Преподаватели</a></div>
+                <div class="nav-item nav-item-three"><div class="nav-circle"><p>3</p><div class="nav-line nav-line-three"></div></div><a href="#classes" class="nav-p">Классы</a></div>
+                <div class="nav-item nav-item-four"><div class="nav-circle"><p>4</p><div class="nav-line nav-line-four"></div></div><a href="#courses" class="nav-p">Курсы</a></div>
+                <div class="nav-item nav-item-five"><div class="nav-circle"><p>5</p><div class="nav-line nav-line-five"></div></div><a href="#option" class="nav-p">Дополнительные настройки</a></div>
+                <div class="nav-item nav-item-six"><div class="nav-circle"><p>6</p><div class="nav-line nav-line-six"></div></div><a href="#finish" class="nav-p">Результат</a></div>
         </div>
         <section class="landing-choose-teachers">
             <a name="teachers"></a>
@@ -92,6 +93,7 @@
                 </div>
                 <div class="boxer">
                     <form id="input-teacher" class="landing-form">
+                        {% csrf_token %}
                         <div id="input-teacher-0" class="item">
                             <div class="input-teacher">
                                     <input type="text" class="teacher-name-first" value="" placeholder="Фамилия" pattern="[А-Яа-я ]{20}" required>
@@ -109,8 +111,8 @@
                     </div>
                 </div>
                 <div class="btn-next">
-                    <a href="#classes" class="sub-btn act-btn">Следующий этап</a>
-                    <a href="#subjects" class="sub-btn pas-btn">Вернуться назад</a>
+                    <a href="#subjects" class="sub-btn pas-btn">назад</a>
+                    <a href="#classes" class="sub-btn act-btn">далее</a>
                 </div>
             </div>
         </section>
@@ -133,6 +135,7 @@
                 </div>
                 <div class="boxer">
                     <form id="input-classes" class="landing-form">
+                        {% csrf_token %}
                         <div id="input-classes-0" class="item">
                             <div class="input-classes">
                                     <input type="text" class="classes-name-number" value="" placeholder="5" pattern="[0-9]{1}" required>
@@ -166,8 +169,8 @@
                     </div>
                 </div>
                 <div class="btn-next">
-                    <a href="#courses" class="sub-btn act-btn">Следующий этап</a>
-                    <a href="#teachers" class="sub-btn pas-btn">Вернуться назад</a>
+                    <a href="#teachers" class="sub-btn pas-btn">назад</a>
+                    <a href="#courses" class="sub-btn act-btn">далее</a>
                 </div>
             </div>
         </section>
@@ -189,59 +192,10 @@
                     <p class="standart-p">Выберите класс ниже:</p>
                     <div id = "avaliable-classes" class="avaliable-classes"></div>
                 </div>
-                <div id="box-courses" class="boxer">
-                    <!-- <form id="input-courses-5а" class="landing-form unvis-box box vis-box">
-                        <div id="input-courses">
-                            <div id="input-courses-0" class="item">
-                                <div class="input-courses">
-                                        <select class = "list-of-subjects"></select>
-                                        <select class = "list-of-teachers"></select>
-                                        <span class="description-text">Кол-во занятий:</span>
-                                        <input type="number" class="courses-max-course" value="1" min="1" max="15" step="1" required>
-                                        <div class="number-input-max-course">
-                                            <div>
-                                                <button onclick='this.parentNode.parentNode.parentNode.querySelector("input[type=number]").stepUp()' class="plus up"></button>
-                                            </div>
-                                            <div>
-                                                <button onclick='this.parentNode.parentNode.parentNode.querySelector("input[type=number]").stepDown()' class="down"></button>
-                                            </div>
-                                        </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="input-courses-psevdo"></div>
-                            <div class="counter-add-circle" onclick="addInputCourses('input-courses-5а')"><div class="counter-add-plus"></div></div>
-                        </div>
-                    </form> -->
-                    <!-- <form id="input-courses-5б" class="landing-form unvis-box">
-                        <div id="input-courses">
-                            <div id="input-courses-0" class="item">
-                                <div class="input-courses">
-                                        <select class = "list-of-subjects"></select>
-                                        <select class = "list-of-teachers"></select>
-                                        <span class="description-text">Кол-во занятий:</span>
-                                        <input type="number" class="courses-max-course" value="1" min="1" max="15" step="1" required>
-                                        <div class="number-input-max-course">
-                                            <div>
-                                                <button onclick='this.parentNode.parentNode.parentNode.querySelector("input[type=number]").stepUp()' class="plus up"></button>
-                                            </div>
-                                            <div>
-                                                <button onclick='this.parentNode.parentNode.parentNode.querySelector("input[type=number]").stepDown()' class="down"></button>
-                                            </div>
-                                        </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="input-courses-psevdo"></div>
-                            <div class="counter-add-circle" onclick="addInputCourses()"><div class="counter-add-plus"></div></div>
-                        </div>
-                    </form> -->
-                </div>
+                <div id="box-courses" class="boxer"></div>
                 <div class="btn-next">
-                    <a href="#option" class="sub-btn act-btn">Следующий этап</a>
-                    <a href="#classes" class="sub-btn pas-btn">Вернуться назад</a>
+                    <a href="#classes" class="sub-btn pas-btn">назад</a>
+                    <a href="#option" class="sub-btn act-btn">далее</a>
                 </div>
             </div>
         </section>
@@ -262,8 +216,8 @@
                 <div class="boxer">
                 </div>
                 <div class="btn-next">
-                    <a href="#finish" class="sub-btn act-btn">Следующий этап</a>
-                    <a href="#courses" class="sub-btn pas-btn">Вернуться назад</a>
+                    <a href="#courses" class="sub-btn pas-btn">назад</a>
+                    <a href="#finish" onclick="" class="sub-btn act-btn">готово</a>
                 </div>
             </div>
         </section>
@@ -284,7 +238,7 @@
                 <div class="boxer">
                 </div>
                 <div class="btn-next">
-                    <a href="#option" class="sub-btn pas-btn">Вернуться назад</a>
+                    <a href="#option" class="sub-btn pas-btn">назад</a>
                 </div>
             </div>
         </section>
