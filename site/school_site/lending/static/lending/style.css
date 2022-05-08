@@ -311,6 +311,7 @@ svg.trash:hover path{
 .nav-item{
     position: sticky;
     margin-bottom: 50px;
+    display: flex;
 }
 
 .nav-p{
@@ -318,7 +319,12 @@ svg.trash:hover path{
     margin-left: 20px;
     color: #737B7D;
     font-size: 25px;
+    text-decoration: none;
 }
+.nav-p:hover{
+    color: black;
+}
+
 .nav-circle {
     width: 32px;
     height: 32px;
@@ -353,26 +359,28 @@ svg.trash:hover path{
 }
 
 .nav-item-one{
-    top: 0px;
+    top: 70px;
 }
 .nav-item-two{
-    top: 75px;
+    top: 195px;
 }
 .nav-item-three{
-    top: 150px;
+    top: 320px;
 }
 .nav-item-four{
-    top: 225px;
+    top: 445px;
 }
 .nav-item-five{
-    top: 300px;
+    top: 570px;
 }
 .nav-item-six{
-    top:375px;
+    top:695px;
 }
 
 .btn-next {
     margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
 }
 
 /* section teacher start */

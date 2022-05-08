@@ -3,6 +3,8 @@ var teach = 0;
 var classes = 0;
 var courses = 0;
 
+console.log(navigator.userAgent);
+
 /**
  * @name addInputSubject
  * @description create html text for unput subject
@@ -86,46 +88,27 @@ function checkSelectionSubjects() {
 /**
  * @name getTeachers
  * @description create set of teachers which input by user.
- * @returns {set} teachers
+ * @returns {object} teachers_array
  */
 function getTeachers() {
     let i = 0;
-    let teachers = new Set();
     let teachers_array = {};
 
     while (i < 1000) {
         let doc = document.getElementById('input-teacher-' + String(i)) ;
-        let key = String(doc.getElementsByClassName('teacher-name-first')[0].value) +' '+ String(doc.getElementsByClassName('teacher-name-second')[0].value) +' '+ String(doc.getElementsByClassName('teacher-name-third')[0].value);
-        let val = doc.getElementsByClassName('list-of-subjects')[0].value;
-
-        console.log(val);
 
         if (doc) {
-            teachers.add(key);
+            let val = String(doc.getElementsByClassName('teacher-name-first')[0].value) +' '+ String(doc.getElementsByClassName('teacher-name-second')[0].value) +' '+ String(doc.getElementsByClassName('teacher-name-third')[0].value);
+            let key = doc.getElementsByClassName('list-of-subjects')[0].value;
             if (teachers_array[key]){
                 teachers_array[key].add(val);
-            } else {
-                teachers_array[key] = [val];
+            } else {  
+                teachers_array[key] = new Set([val]);
             };
         }
         i+=1;
     }
-    console.log(teachers_array);
-    return teachers;
-};
-
-/**
- * @name getHtmlTeachers
- * @description create html tag 'select' with options including name teachers
- * @returns {string} getHtmlTeachers
- */
-function getHtmlTeachers() {
-    let elements = getTeachers();
-    let html = '<select class = "list-of-teachers" onchange="getComboA(this)">'
-    for (let element of elements) {
-        html += '<option value = "'+ element + '">' + element + '</option>'
-  }
-    return html += '</select>'
+    return teachers_array
 };
 
 /**
@@ -135,30 +118,46 @@ function getHtmlTeachers() {
  */
 function checkSelectionTeachers() {
     let teachers = getTeachers();
-
+    let key = 0;
     for (let main_elem of document.getElementsByClassName('list-of-teachers')) {
-        let options = main_elem.getElementsByTagName('option');
-        // delete
-        for (let option of options) {
-            if (!teachers.has(option.value)) {
+        
+        let subject = main_elem.previousSibling.previousElementSibling.value;
+        // delete option
+        for (let option of main_elem.getElementsByTagName('option')) {
+            if (teachers[subject] != undefined){
+                if (!teachers[subject].has(option.value)) {
+                    option.remove();
+                };
+            } else {
                 option.remove();
             };
         };
-        // add
-        let set_options = new Set();
-        let new_options = main_elem.getElementsByTagName('option');
-        for (let option of new_options){
-            set_options.add(option.value);
+
+        // actual options
+        let current_teachers = new Set();
+        for (let update_option of document.getElementsByClassName('list-of-teachers')[key].getElementsByTagName('option')) {
+            current_teachers.add(update_option.value);
         };
 
-        for (let teacher of teachers) {
-            if (!set_options.has(teacher)) {
+        // different current and new
+        let result_set_teachers = new Set ();
+        if (teachers[subject] != undefined) {
+            for (let teacher of teachers[subject]) {
+                if (!current_teachers.has(teacher)) {
+                    result_set_teachers.add(teacher);
+                };
+            };
+        };
+
+        //add
+        console.log(result_set_teachers);
+        for (let teacher of result_set_teachers) {
                 let new_option = document.createElement('option');
                 new_option.value = teacher;
                 new_option.innerHTML = teacher;
                 main_elem.appendChild(new_option);
-            };
         };
+        key += 1;
     };
 };
 
@@ -174,9 +173,9 @@ function addInputTeacher() {
 
   let first_part_html = '<div class="input-teacher"><input type="text" class="teacher-name-first" value="" placeholder="Фамилия" pattern="[А-Яа-я ]" required><input type="text" class="teacher-name-second" value="" placeholder="Имя" pattern="[А-Яа-я ]" required><input type="text" class="teacher-name-third" value="" placeholder="Отчество" pattern="[А-Яа-я ]" required>';
   let second_part_html = '</div></div></div><div class="counter" onclick="delInput(\'input-teacher-\',' + res + ')"><svg class="trash" viewBox="0 0 50 50" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg"><path d="M32 17H28.5L27.5 16H22.5L21.5 17H18V19H32V17ZM19 32C19 32.5304 19.2107 33.0391 19.5858 33.4142C19.9609 33.7893 20.4696 34 21 34H29C29.5304 34 30.0391 33.7893 30.4142 33.4142C30.7893 33.0391 31 32.5304 31 32V20H19V32Z" fill="#979797"/></svg></div>';
-  div.id = 'input-teacher-' + res;
+  div.id = 'input-teacher-' + String(res);
   div.classList.add('item');
-  div.innerHTML = first_part_html + getHtmlTeachers() + second_part_html;
+  div.innerHTML = first_part_html + getHtmlSubjects() + second_part_html;
   profile.appendChild(div)
 };
 
@@ -285,14 +284,17 @@ function checkSelectionClasses() {
  * 
  */
 function addInputCourses(idd) {
-    console.log(idd);
+    //console.log(idd);
     let res = ++courses;
 
-    console.log(document.getElementById(idd));
+    //console.log(document.getElementById(idd));
     var profile = document.getElementById(idd).getElementsByTagName('div')[0];
     
     var div = document.createElement('div');
-    div.id = 'input-courses-' + res;
+    div.id = 'input-courses-' + String(res);
+
+    //console.log('DIV ID:', div.id);
+
     div.classList.add('item');
     div.innerHTML = '<div class="input-courses"> \
                         <select class = "list-of-subjects"></select> \
@@ -326,6 +328,14 @@ function addInputCourses(idd) {
 function visBox(val){
     //console.log(val);
     // for safari - val.target.id
+    if (navigator.userAgent.toLowerCase().includes('chrome')) {
+        course_id = val.path[0].value;
+        //console.log('SAFARI! ', course_id);
+    } else {
+        course_id = val.target.id;
+        //console.log(course_id);
+    }
+     
     for (let elem of document.getElementsByClassName('box')) {
         elem.classList.remove('vis-box');
     };
@@ -336,13 +346,11 @@ function visBox(val){
         id_forms.add(elem.id);
     };
 
-    if (!id_forms.has('input-courses-' + String(val.path[0].value))) {
-        createBox(String(val.path[0].value));
-        //createBox(String(val));
+    if (!id_forms.has('input-courses-' + String(course_id))) {
+        createBox(String(course_id));
     };
     
-    let box = document.getElementById('input-courses-' + String(val.path[0].value));
-    //let box = document.getElementById(String(val));
+    let box = document.getElementById('input-courses-' + String(course_id));
     box.classList.add('vis-box');
 
 };
@@ -363,6 +371,7 @@ function createBox(id){
     box.classList.add('unvis-box');
     box.classList.add('box');
     box.innerHTML = '\
+                    {% csrf_token %}\
                     <div id="input-courses">\
                     <div id="input-courses-0" class="item">\
                             <div class="input-courses">\
@@ -501,3 +510,17 @@ window.onscroll = function() {
 function getComboA(selectObject) {
     var value = selectObject.value;  
 };
+
+
+function send_info() {
+    let input-courses
+};
+
+
+// [{
+//    'clas' : '1a',
+//    'courses' : {1 : ['Французский язык', 'FIO', 1],
+//                 2 : ['Математика', 'FIO', 2]  },
+//  },
+//  {}
+// ]
