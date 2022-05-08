@@ -4,7 +4,7 @@ function displayOpa() {
 
     if (login == 'qwerty') {
         if (pass == 'qwerty') {
-            document.getElementById('opa').style.display = 'block';//classList.add('activate');
+            document.getElementById('opa').style.display = 'block';
         };
     };
 
@@ -17,6 +17,8 @@ var sub = 0;
 var teach = 0;
 var classes = 0;
 var courses = 0;
+
+
 
 /**
  * @name addInputSubject

@@ -1,10 +1,9 @@
-{% load static %}
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>School-Table</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="{% static 'lending/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
   <body id = 'opa'>
     <a name="start-main"></a>
@@ -93,15 +92,12 @@
                 </div>
                 <div class="boxer">
                     <form id="input-teacher" class="landing-form">
-                        {% csrf_token %}
                         <div id="input-teacher-0" class="item">
                             <div class="input-teacher">
                                     <input type="text" class="teacher-name-first" value="" placeholder="Фамилия" pattern="[А-Яа-я ]{20}" required>
                                     <input type="text" class="teacher-name-second" value="" placeholder="Имя" pattern="[А-Яа-я ]{20}" required>
                                     <input type="text" class="teacher-name-third" value="" placeholder="Отчество" pattern="[А-Яа-я ]{20}" required>
-                                    <select class = "list-of-subjects" onchange="getComboA(this)">
-                                        <option value="sdf">sdf</option>
-                                    </select>
+                                    <select class = "list-of-subjects" onchange="getComboA(this)"></select>
                             </div>
                         </div>
                     </form>
@@ -135,7 +131,6 @@
                 </div>
                 <div class="boxer">
                     <form id="input-classes" class="landing-form">
-                        {% csrf_token %}
                         <div id="input-classes-0" class="item">
                             <div class="input-classes">
                                     <input type="text" class="classes-name-number" value="" placeholder="5" pattern="[0-9]{1}" required>
@@ -244,7 +239,7 @@
         </section>
     </div>
   </body>
-<script src="{% static 'lending/main.js' %}"></script>
+<script src="js/main.js"></script>
 </html>
 
 
