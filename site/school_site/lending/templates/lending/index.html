@@ -6,18 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="{% static 'lending/style.css' %}">
 </head>
-  <body id = 'opa'>
+  <body>
     <a name="start-main"></a>
     <section class="landing-main-start">
         <div class="landing-section-content">
           <h1 class="brand">Школьное расписание</br>в несколько кликов!</h1>
           <p class="landing-main-text">
-                   Используя различные алгоритмы, Вы сможете быстро получить расписание в нужном Вам виде. </br>Быстро. Просто. Удобно.
+            Используя данное приложение, вы получите школьное расписание в нужном Вам виде.</br>Быстро. Просто. Удобно.
           </p>
-          <a href="#subjects" class="sub-btn act-btn">Построить описание</a>
+          <a href="#subjects" class="sub-btn act-btn">построить расписание</a>
       </div>
     </section>
     <div>
+        <div class="landing-nav-right">
+            <div class="nav-item nav-item-one"><div class="nav-circle nav-item-active"><p>1</p><div class="nav-line nav-line-one"></div></div><a href="#subjects" class="nav-p nav-item-active-p">Предметы</a></div>
+            <div class="nav-item nav-item-two"><div class="nav-circle"><p>2</p><div class="nav-line nav-line-two"></div></div><a href="#teachers" class="nav-p">Преподаватели</a></div>
+            <div class="nav-item nav-item-three"><div class="nav-circle"><p>3</p><div class="nav-line nav-line-three"></div></div><a href="#classes" class="nav-p">Классы</a></div>
+            <div class="nav-item nav-item-four"><div class="nav-circle"><p>4</p><div class="nav-line nav-line-four"></div></div><a href="#courses" class="nav-p">Курсы</a></div>
+            <div class="nav-item nav-item-five"><div class="nav-circle"><p>5</p><div class="nav-line nav-line-five"></div></div><a href="#option" class="nav-p">Дополнительные настройки</a></div>
+            <div class="nav-item nav-item-six"><div class="nav-circle"><p>6</p><div class="nav-line nav-line-six"></div></div><a href="#finish" class="nav-p">Результат</a></div>
+        </div>
         <section class="landing-choose-subjects">
             <a name="subjects"></a>
             <div>
@@ -33,16 +41,16 @@
                     </h1>
                 </div>
                 <div class="help-button">
-                    <button class="sub-btn pas-btn" onclick="addStandartLessons()">Добавить стандартные уроки</button>
+                    <button class="sub-btn pas-btn" onclick="addStandartLessons()">Добавить предметы автоматически</button>
                     <button class="sub-btn act-btn" onclick="delAllInput('input-subject-')">Удалить все</button>
                 </div>
                 <div class="boxer">
                     <form id="input-subject" class="landing-form">
-                        {% csrf_token %}
+                        <!-- {% csrf_token %} -->
                         <div id="input-subject-0" class="item">
                             <div class="input-subject">
-                                    <input type="text" class="subject-name" value="" placeholder="Название предмета" pattern="[А-Яа-я ]" required>
-                                    <span class="description-text">Сложность:</span>
+                                    <input type="text" class="subject-name" value="" placeholder="Название предмета" pattern = "^[А-Яа-яЁё\s]+$" required>
+                                    <!-- <span class="description-text">Сложность:</span>
                                     <input type="number" class="subject-cost" value="1" min="1" max="2" step="0.5" required>
                                     <div class="number-input">
                                         <div>
@@ -51,7 +59,7 @@
                                         <div>
                                             <button onclick='this.parentNode.parentNode.parentNode.querySelector("input[type=number]").stepDown()' class="down"></button>
                                         </div>
-                                    </div>
+                                    </div> -->
                             </div>
                         </div>
                     </form>
@@ -66,14 +74,7 @@
                 </div>
             </div>
         </section>
-        <div class="landing-nav-right">
-                <div class="nav-item nav-item-one"><div class="nav-circle nav-item-active"><p>1</p><div class="nav-line nav-line-one"></div></div><a href="#subjects" class="nav-p nav-item-active-p">Предметы</a></div>
-                <div class="nav-item nav-item-two"><div class="nav-circle"><p>2</p><div class="nav-line nav-line-two"></div></div><a href="#teachers" class="nav-p">Преподаватели</a></div>
-                <div class="nav-item nav-item-three"><div class="nav-circle"><p>3</p><div class="nav-line nav-line-three"></div></div><a href="#classes" class="nav-p">Классы</a></div>
-                <div class="nav-item nav-item-four"><div class="nav-circle"><p>4</p><div class="nav-line nav-line-four"></div></div><a href="#courses" class="nav-p">Курсы</a></div>
-                <div class="nav-item nav-item-five"><div class="nav-circle"><p>5</p><div class="nav-line nav-line-five"></div></div><a href="#option" class="nav-p">Дополнительные настройки</a></div>
-                <div class="nav-item nav-item-six"><div class="nav-circle"><p>6</p><div class="nav-line nav-line-six"></div></div><a href="#finish" class="nav-p">Результат</a></div>
-        </div>
+        <div class="nav-psevdo-right"></div>
         <section class="landing-choose-teachers">
             <a name="teachers"></a>
             <div>
@@ -96,11 +97,12 @@
                         {% csrf_token %}
                         <div id="input-teacher-0" class="item">
                             <div class="input-teacher">
-                                    <input type="text" class="teacher-name-first" value="" placeholder="Фамилия" pattern="[А-Яа-я ]{20}" required>
-                                    <input type="text" class="teacher-name-second" value="" placeholder="Имя" pattern="[А-Яа-я ]{20}" required>
-                                    <input type="text" class="teacher-name-third" value="" placeholder="Отчество" pattern="[А-Яа-я ]{20}" required>
+                                    <input type="text" class="teacher-name-first" value="" placeholder="Карпунин" pattern = "^[а-яА-ЯЁё]+$" required>
+                                    <input type="text" class="teacher-name-second" value="" placeholder="Николай" pattern = "^[а-яА-ЯЁё]+$" required>
+                                    <input type="text" class="teacher-name-third" value="" placeholder="Сергеевич" pattern = "^[а-яА-ЯЁё]+$" required>
+                                    <!-- <input type="text" class="teacher-name-third" value="" placeholder="Отчество" pattern="[А-Яа-я ]{20}" required> -->
                                     <select class = "list-of-subjects" onchange="getComboA(this)">
-                                        <option value="sdf">sdf</option>
+                                        <option class = "option-disabled" value="" disabled selected>Выбери предмет</option>
                                     </select>
                             </div>
                         </div>
@@ -116,6 +118,7 @@
                 </div>
             </div>
         </section>
+        <div class="nav-psevdo-right"></div>
         <section class="landing-choose-classes">
             <a name="classes"></a>
             <div>
@@ -138,9 +141,9 @@
                         {% csrf_token %}
                         <div id="input-classes-0" class="item">
                             <div class="input-classes">
-                                    <input type="text" class="classes-name-number" value="" placeholder="5" pattern="[0-9]{1}" required>
+                                    <input type="text" class="classes-name-number" value="" placeholder="5" pattern="[0-9]{1,2}" required>
                                     <input type="text" class="classes-name-letter" value="" placeholder="А" pattern="[А-Яа-я]{1}" required>
-                                    <span class="description-text">Максимальное кол-во уроков в день:</span>
+                                    <span class="description-text">кол-во уроков в день:</span>
                                     <input type="number" class="classes-max-lessons" value="4" min="4" max="9" step="1" required>
                                     <div class="number-input-max-lessons">
                                         <div>
@@ -150,7 +153,7 @@
                                             <button onclick='this.parentNode.parentNode.parentNode.querySelector("input[type=number]").stepDown()' class="down"></button>
                                         </div>
                                     </div>
-                                    <span class="description-text">Кол-во уч. дней в неделю:</span>
+                                    <span class="description-text">кол-во уч. дней в неделю:</span>
                                     <input type="number" class="classes-study-day" value="5" min="5" max="6" step="1" required>
                                     <div class="number-input-study-day">
                                         <div>
@@ -174,6 +177,7 @@
                 </div>
             </div>
         </section>
+        <div class="nav-psevdo-right"></div>
         <section class="landing-choose-courses">
             <a name="courses"></a>
             <div>
@@ -199,6 +203,7 @@
                 </div>
             </div>
         </section>
+        <div class="nav-psevdo-right"></div>
         <section class="landing-choose-option">
             <a name="option"></a>
             <div>
@@ -217,10 +222,13 @@
                 </div>
                 <div class="btn-next">
                     <a href="#courses" class="sub-btn pas-btn">назад</a>
-                    <a href="#finish" onclick="" class="sub-btn act-btn">готово</a>
+                    <form method = "get">
+                        <button href="#finish" onclick="send_info()" class="sub-btn act-btn">готово</a>
+                    </form>
                 </div>
             </div>
         </section>
+        <div class="nav-psevdo-right"></div>
         <section class="landing-choose-finish">
             <a name="finish"></a>
             <div>
