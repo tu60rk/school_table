@@ -7,4 +7,7 @@ def index(request):
     :param request: instance class HttpReuqest has info about request.
     :return: instance class HttpResponse
     """
+    print('Hello!')
+    if request.GET:
+        print('GET!')
     return render(request, 'lending/index.html')

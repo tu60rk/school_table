@@ -2,6 +2,8 @@
 /* start setting of html tags */
 body {
     background-color: rgba(60, 100, 177, 0.10);
+    font-family: Arial, Helvetica, sans-serif;
+    /*font-style: ;*/
 }
 
 html{
@@ -52,7 +54,7 @@ input[type=number]::-webkit-outer-spin-button {
   padding: 100px;
   text-align: center;
   border-radius: 50%;
-  box-shadow:  0 0 0 10px #3C64B1, 0 0 0 20px #5A80C9, 0 0 0 30px #87A5DE ;
+  /* box-shadow:  0 0 0 10px #3C64B1, 0 0 0 20px #5A80C9, 0 0 0 30px #87A5DE ; */
 }
 
 .brand{
@@ -113,7 +115,7 @@ input[type=number]::-webkit-outer-spin-button {
     width: 25%;
     position: sticky;
     top: 0;
-    left: 80%;
+    left: 5%;
     min-height: 100vh;
     display: inline-block;
     vertical-align: top;
@@ -172,7 +174,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .input-subject-psevdo{
-    width: 50%;
+    width: 32.5%;
 }
 
 .input-teacher-psevdo{
@@ -238,14 +240,6 @@ input[type=number]::-webkit-outer-spin-button {
     color: black;
 }
 
-.counter
-{
-  display: inline-block;
-  vertical-align: middle;
-  width: 40px;
-  height: 40px;
-}
-
 .counter-add-circle {
     width: 30px;
     height: 30px;
@@ -282,7 +276,6 @@ input[type=number]::-webkit-outer-spin-button {
   cursor: pointer;
 }
 
-/*.counter-add-plus:hover,*/
 .counter-add-circle:hover{
     background: rgba(60, 100, 177, 0.5);
 }
@@ -290,9 +283,6 @@ input[type=number]::-webkit-outer-spin-button {
 .trash {
     width: 40px;
     height: 40px;
-    position: relative;
-    top: -3px;
-    left: 4px;
 }
 
 svg.trash:hover path{
@@ -381,6 +371,11 @@ svg.trash:hover path{
     margin-top: 30px;
     display: flex;
     justify-content: space-between;
+}
+
+.nav-psevdo-right{
+    width:25%;
+    display: inline-block;
 }
 
 /* section teacher start */
@@ -532,4 +527,8 @@ svg.trash:hover path{
 
 .activate{
     display: block;
+}
+
+.option-disabled{
+    color:rgba(115, 123, 125, 0.38)
 }

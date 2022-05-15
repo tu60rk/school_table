@@ -1,17 +1,17 @@
-function displayOpa() {
-    let login = prompt("Enter login");
-    let pass = prompt("Enter password");
+// function displayOpa() {
+//     let login = prompt("Enter login");
+//     let pass = prompt("Enter password");
 
-    if (login == 'qwerty') {
-        if (pass == 'qwerty') {
-            document.getElementById('opa').style.display = 'block';//classList.add('activate');
-        };
-    };
+//     if (login == 'qwerty') {
+//         if (pass == 'qwerty') {
+//             document.getElementById('opa').style.display = 'block';//classList.add('activate');
+//         };
+//     };
 
 
-};
+// };
 
-window.onload = displayOpa;
+// window.onload = displayOpa;
 
 var sub = 0;
 var teach = 0;
@@ -32,7 +32,13 @@ function addInputSubject(name_subject = '', cost_subject = 1) {
   var div = document.createElement('div');
   div.id = 'input-subject-' + res;
   div.classList.add('item');
-  div.innerHTML = '<div class="input-subject"><input type="text" class="subject-name" value="'+ name_subject +'" placeholder="Название предмета" pattern="[А-Яа-я ]" required><span class="description-text">Сложность:</span><input type="number" class="subject-cost" value="' + cost_subject +'" min="1" max="2" step="0.5" required><div class="number-input"><div><button onclick="this.parentNode.parentNode.parentNode.querySelector(\'input[type=number]\').stepUp()" class="plus up"></button></div><div><button onclick="this.parentNode.parentNode.parentNode.querySelector(\'input[type=number]\').stepDown()" class="down"></button></div></div></div><div class="counter" onclick="delInput(\'input-subject-\',' + res + ')"><svg class="trash" viewBox="0 0 50 50" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg"><path d="M32 17H28.5L27.5 16H22.5L21.5 17H18V19H32V17ZM19 32C19 32.5304 19.2107 33.0391 19.5858 33.4142C19.9609 33.7893 20.4696 34 21 34H29C29.5304 34 30.0391 33.7893 30.4142 33.4142C30.7893 33.0391 31 32.5304 31 32V20H19V32Z" fill="#979797"/></svg></div>';
+  //div.innerHTML = '<div class="input-subject"><input type="text" class="subject-name" value="'+ name_subject +'" placeholder="Название предмета" pattern="[А-Яа-я ]" required><span class="description-text">Сложность:</span><input type="number" class="subject-cost" value="' + cost_subject +'" min="1" max="2" step="0.5" required><div class="number-input"><div><button onclick="this.parentNode.parentNode.parentNode.querySelector(\'input[type=number]\').stepUp()" class="plus up"></button></div><div><button onclick="this.parentNode.parentNode.parentNode.querySelector(\'input[type=number]\').stepDown()" class="down"></button></div></div></div><div class="counter" onclick="delInput(\'input-subject-\',' + res + ')"><svg class="trash" viewBox="0 0 50 50" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg"><path d="M32 17H28.5L27.5 16H22.5L21.5 17H18V19H32V17ZM19 32C19 32.5304 19.2107 33.0391 19.5858 33.4142C19.9609 33.7893 20.4696 34 21 34H29C29.5304 34 30.0391 33.7893 30.4142 33.4142C30.7893 33.0391 31 32.5304 31 32V20H19V32Z" fill="#979797"/></svg></div>';
+  div.innerHTML = '<div class="input-subject">\
+                        <input type="text" class="subject-name" value="'+ name_subject +'" placeholder="Название предмета" pattern="^[А-Яа-яЁё\\s]+$" required>\
+                   </div>\
+                   <div class="counter" onclick="delInput(\'input-subject-\',' + res + ')">\
+                   <svg class="trash" viewBox="0 0 50 50" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg"><path d="M32 17H28.5L27.5 16H22.5L21.5 17H18V19H32V17ZM19 32C19 32.5304 19.2107 33.0391 19.5858 33.4142C19.9609 33.7893 20.4696 34 21 34H29C29.5304 34 30.0391 33.7893 30.4142 33.4142C30.7893 33.0391 31 32.5304 31 32V20H19V32Z" fill="#979797"/></svg>\
+                   </div>';
   profile.appendChild(div);
 };
 
@@ -52,11 +58,12 @@ function getSubjects() {
  */
 function getHtmlSubjects() {
     let elements = getSubjects();
-    let html = '<select class = "list-of-subjects" onchange="getComboA(this)">'
+    let html = '<select class = "list-of-subjects" onchange="getComboA(this)">';
+    html += '<option class = "option-disabled" value="" disabled selected>Выбери предмет</option>';
     for (let element of elements) {
-        html += '<option value = "'+ element.value + '">' + element.value + '</option>'
-  }
-    return html += '</select>'
+        html += '<option value = "'+ element.value + '">' + element.value + '</option>';
+    };
+    return html += '</select>';
 };
 
 /**
@@ -74,8 +81,12 @@ function checkSelectionSubjects() {
 
     for (let main_elem of document.getElementsByClassName('list-of-subjects')) {
         let options = main_elem.getElementsByTagName('option');
+        
         // delete
         for (let option of options) {
+            if (option.className == 'option-disabled') {
+                continue;
+            };
             if (!subjects.has(option.value)) {
                 option.remove();
             };
@@ -137,6 +148,10 @@ function checkSelectionTeachers() {
         let subject = main_elem.previousSibling.previousElementSibling.value;
         // delete option
         for (let option of main_elem.getElementsByTagName('option')) {
+            if (option.className == 'option-disabled') {
+                continue;
+            };
+
             if (teachers[subject] != undefined){
                 if (!teachers[subject].has(option.value)) {
                     option.remove();
@@ -163,7 +178,7 @@ function checkSelectionTeachers() {
         };
 
         //add
-        console.log(result_set_teachers);
+        //console.log(result_set_teachers);
         for (let teacher of result_set_teachers) {
                 let new_option = document.createElement('option');
                 new_option.value = teacher;
@@ -184,7 +199,7 @@ function addInputTeacher() {
   var profile = document.getElementById('input-teacher');
   var div = document.createElement('div');
 
-  let first_part_html = '<div class="input-teacher"><input type="text" class="teacher-name-first" value="" placeholder="Фамилия" pattern="[А-Яа-я ]" required><input type="text" class="teacher-name-second" value="" placeholder="Имя" pattern="[А-Яа-я ]" required><input type="text" class="teacher-name-third" value="" placeholder="Отчество" pattern="[А-Яа-я ]" required>';
+  let first_part_html = '<div class="input-teacher"><input type="text" class="teacher-name-first" value="" placeholder="Карпунин" pattern="[А-Яа-я ]" required><input type="text" class="teacher-name-second" value="" placeholder="Николай" pattern="[А-Яа-я ]" required><input type="text" class="teacher-name-third" value="" placeholder="Сергеевич" pattern="[А-Яа-я ]" required>';
   let second_part_html = '</div></div></div><div class="counter" onclick="delInput(\'input-teacher-\',' + res + ')"><svg class="trash" viewBox="0 0 50 50" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg"><path d="M32 17H28.5L27.5 16H22.5L21.5 17H18V19H32V17ZM19 32C19 32.5304 19.2107 33.0391 19.5858 33.4142C19.9609 33.7893 20.4696 34 21 34H29C29.5304 34 30.0391 33.7893 30.4142 33.4142C30.7893 33.0391 31 32.5304 31 32V20H19V32Z" fill="#979797"/></svg></div>';
   div.id = 'input-teacher-' + String(res);
   div.classList.add('item');
@@ -206,8 +221,8 @@ function addInputClasses() {
     div.innerHTML = '<div class="input-classes"> \
                         <input type="text" class="classes-name-number" value="" placeholder="5" pattern="[А-Яа-я ]" required> \
                         <input type="text" class="classes-name-letter" value="" placeholder="А" pattern="[А-Яа-я ]" required> \
-                        <span class="description-text">Максимальное кол-во уроков в день:</span> \
-                        <input type="number" class="classes-max-lessons" value="4" min="4" max="9" step="1" required> \
+                        <span class="description-text">кол-во уроков в день:</span> \
+                        <input type="number" class="classes-max-lessons" value="4" min="4" max="9" step="1" required disabled> \
                         <div class="number-input-max-lessons"> \
                             <div> \
                                 <button onclick=\'this.parentNode.parentNode.parentNode.querySelector("input[type=number]").stepUp()\' class="plus up"></button> \
@@ -216,8 +231,8 @@ function addInputClasses() {
                                 <button onclick=\'this.parentNode.parentNode.parentNode.querySelector("input[type=number]").stepDown()\' class="down"></button> \
                             </div> \
                         </div> \
-                        <span class="description-text">Кол-во уч. дней в неделю:</span> \
-                        <input type="number" class="classes-study-day" value="5" min="5" max="6" step="1" required> \
+                        <span class="description-text">кол-во уч. дней в неделю:</span> \
+                        <input type="number" class="classes-study-day" value="5" min="5" max="6" step="1" required disabled> \
                         <div class="number-input-study-day"> \
                             <div> \
                                 <button onclick=\'this.parentNode.parentNode.querySelector("input[type=number]").stepUp()\' class="plus up"></button> \
@@ -310,10 +325,10 @@ function addInputCourses(idd) {
 
     div.classList.add('item');
     div.innerHTML = '<div class="input-courses"> \
-                        <select class = "list-of-subjects"></select> \
-                        <select class = "list-of-teachers"></select> \
+                        <select class = "list-of-subjects"><option class = "option-disabled" value="" disabled selected>Выбери предмет</option></select> \
+                        <select class = "list-of-teachers"><option class = "option-disabled" value="" disabled selected>Выбери учителя</option></select> \
                         <span class="description-text">Кол-во занятий:</span> \
-                        <input type="number" class="courses-max-course" value="1" min="1" max="15" step="1" required> \
+                        <input type="number" class="courses-max-course" value="1" min="1" max="15" step="1" required disabled> \
                         <div class="number-input-max-course"> \
                             <div> \
                                 <button onclick=\'this.parentNode.parentNode.parentNode.querySelector("input[type=number]").stepUp()\' class="plus up"></button> \
@@ -388,10 +403,10 @@ function createBox(id){
                     <div id="input-courses">\
                     <div id="input-courses-0" class="item">\
                             <div class="input-courses">\
-                                    <select class = "list-of-subjects"></select>\
-                                    <select class = "list-of-teachers"></select>\
+                                    <select class = "list-of-subjects"><option class = "option-disabled" value="" disabled selected>Выбери предмет</option></select>\
+                                    <select class = "list-of-teachers"><option class = "option-disabled" value="" disabled selected>Выбери учителя</option></select>\
                                     <span class="description-text">Кол-во занятий:</span>\
-                                    <input type="number" class="courses-max-course" value="1" min="1" max="15" step="1" required>\
+                                    <input type="number" class="courses-max-course" value="1" min="1" max="15" step="1" required disabled>\
                                     <div class="number-input-max-course">\
                                         <div>\
                                             <button onclick=\'this.parentNode.parentNode.parentNode.querySelector("input[type=number]").stepUp()\' class="plus up"></button>\
@@ -474,9 +489,9 @@ function addStandartLessons() {
     standartLessons.forEach((value, key, map) => {
         if (key == 'Математика') {
             var subject_name = document.getElementById('input-subject-0').querySelector('input[type="text"]');
-            var subject_cost = document.getElementById('input-subject-0').querySelector('input[type="number"]');
+            //var subject_cost = document.getElementById('input-subject-0').querySelector('input[type="number"]');
             subject_name.value = key;
-            subject_cost.value = value;
+            //subject_cost.value = value;
         } else {
             addInputSubject(key, value);
         };
@@ -484,9 +499,9 @@ function addStandartLessons() {
 };
 
 // run update functions all time
-setInterval(checkSelectionSubjects, 1000);
-setInterval(checkSelectionTeachers, 1000);
-setInterval(checkSelectionClasses, 1000);
+setInterval(checkSelectionSubjects, 100);
+setInterval(checkSelectionTeachers, 100);
+setInterval(checkSelectionClasses, 100);
 
 /**
  * @description add classes 'nav-item-active', 'nav-item-active-p' to right navigation with scroll. 
@@ -524,10 +539,44 @@ function getComboA(selectObject) {
     var value = selectObject.value;  
 };
 
+/**
+ * @name 
+ * @returns {object} result_json
+ */
+function send_info() {
+    let result_json = [];
+    let classes = getClasses();
 
-// function send_info() {
-//     let input-courses
-// };
+    for (let store_class of classes) {
+        let json = {};
+
+        let i = 0;
+        
+        json['clas'] = store_class;
+        let number_courses = 1;
+        let course_json = {};
+
+        while (i < 1000) {
+            let input = document.getElementById('input-courses-' + String(store_class));//.getElementsByClassName('item')[i];
+            if (input != undefined) {
+                input = input.querySelector('#input-courses-' + String(i));
+                if (input != undefined) {
+                    let subject = input.getElementsByClassName('list-of-subjects')[0].value;
+                    let teacher = input.getElementsByClassName('list-of-teachers')[0].value;
+                    let count_lessons = input.getElementsByClassName('courses-max-course')[0].value;
+                    
+                    course_json[number_courses] = [subject, teacher, count_lessons];
+                    number_courses += 1;
+                };
+            };
+            i += 1;
+        };
+        json['courses'] = course_json;
+        result_json.push(json); 
+        console.log(result_json);   
+    };
+    return result_json;
+};
 
 
 // [{
