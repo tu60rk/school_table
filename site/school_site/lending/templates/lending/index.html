@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <title>School-Table</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="{% static 'lending/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'lending/css/style.css' %}">
 </head>
   <body>
     <a name="start-main"></a>
@@ -14,221 +16,261 @@
           <p class="landing-main-text">
             Используя данное приложение, вы получите школьное расписание в нужном Вам виде.</br>Быстро. Просто. Удобно.
           </p>
-          <a href="#subjects" class="sub-btn act-btn">построить расписание</a>
+          <a href="#subjects" class="sub-btn act-btn">Построить расписание</a>
       </div>
     </section>
-    <div>
+    <div class="main-container">
         <div class="landing-nav-right">
-            <div class="nav-item nav-item-one"><div class="nav-circle nav-item-active"><p>1</p><div class="nav-line nav-line-one"></div></div><a href="#subjects" class="nav-p nav-item-active-p">Предметы</a></div>
-            <div class="nav-item nav-item-two"><div class="nav-circle"><p>2</p><div class="nav-line nav-line-two"></div></div><a href="#teachers" class="nav-p">Преподаватели</a></div>
-            <div class="nav-item nav-item-three"><div class="nav-circle"><p>3</p><div class="nav-line nav-line-three"></div></div><a href="#classes" class="nav-p">Классы</a></div>
-            <div class="nav-item nav-item-four"><div class="nav-circle"><p>4</p><div class="nav-line nav-line-four"></div></div><a href="#courses" class="nav-p">Курсы</a></div>
-            <div class="nav-item nav-item-five"><div class="nav-circle"><p>5</p><div class="nav-line nav-line-five"></div></div><a href="#option" class="nav-p">Дополнительные настройки</a></div>
-            <div class="nav-item nav-item-six"><div class="nav-circle"><p>6</p><div class="nav-line nav-line-six"></div></div><a href="#finish" class="nav-p">Результат</a></div>
-        </div>
-        <section class="landing-choose-subjects">
-            <a name="subjects"></a>
-            <div>
-                <div>
-                    <h1>Добавь предметы
-                        <svg class="icon-info"
-                             viewBox="0 0 20 20"
-                             fill="none"
-                             xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9 7H11V5H9V7ZM10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM9 15H11V9H9V15Z"
-                              fill="black"/>
-                        </svg>
-                    </h1>
+            <div class="nav-item nav-item-one">
+                <a href="#subjects" onclick="update_lvl('subject')" class="nav-p">
+                    <p>Предметы</p>
+                    <div class="nav-circle">1</div>
+                </a>
+                <div class="nav-line nav-line-one"></div>
+            </div>
+            <div class="nav-item nav-item-two">
+                <a href="#teachers" onclick="update_lvl('teacher')" class="nav-p">
+                    <p>Преподаватели</p>
+                    <div class="nav-circle">2</div>
+                </a>
+                <div class="nav-line nav-line-two"></div>
+            </div>
+            <div class="nav-item nav-item-three">
+                <a href="#classes" onclick="update_lvl('classes')" class="nav-p">
+                    <p>Классы</p>
+                    <div class="nav-circle">3</div>
+                </a>
+                <div class="nav-line nav-line-three"></div>
+            </div>
+            <div class="nav-item nav-item-four">
+                <a href="#courses" class="nav-p">
+                    <p>Курсы</p>
+                    <div class="nav-circle">4</div>
+                </a>
+                <div class="nav-line nav-line-four"></div>
+            </div>
+            <!-- <div class="nav-item nav-item-five">
+                <a href="#option" class="nav-p">Дополнительные настройки</a>
+                <div class="nav-circle">
+                    <p>5</p>
+                    <div class="nav-line nav-line-five"></div>
                 </div>
+            </div> -->
+            <div class="nav-item nav-item-six">
+                <a href="#finish" class="nav-p">
+                    <p>Результат</p>
+                    <div class="nav-circle">5</div>
+                    <div class="nav-line nav-line-six"></div>
+                </a>
+            </div>
+        </div>
+        <form id="main_form" class="main_form" method="post">
+            {% csrf_token %}
+            <section class="landing-choose-subjects">
+                <a name="subjects"></a>
+                <h1>Добавь предметы
+                    <!-- <svg class="icon-info"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 7H11V5H9V7ZM10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM9 15H11V9H9V15Z"
+                        fill="black"/>
+                    </svg> -->
+                </h1>
+                <div class="info-text">Составьте список из предметов, которые преподают в вашей школе</div>
                 <div class="help-button">
-                    <button class="sub-btn pas-btn" onclick="addStandartLessons()">Добавить предметы автоматически</button>
-                    <button class="sub-btn act-btn" onclick="delAllInput('input-subject-')">Удалить все</button>
+                    <a class="sub-btn pas-btn margin-right" id="addstandartlessons">Добавить предметы автоматически</a>
+                    <a class="sub-btn act-btn" onclick="delAllInput('input-subject-')">Удалить все</a>
                 </div>
                 <div class="boxer">
-                    <form id="input-subject" class="landing-form">
-                        <!-- {% csrf_token %} -->
+                    <div id="input-subject">
                         <div id="input-subject-0" class="item">
                             <div class="input-subject">
-                                    <input type="text" class="subject-name" value="" placeholder="Название предмета" pattern = "^[А-Яа-яЁё\s]+$" required>
-                                    <!-- <span class="description-text">Сложность:</span>
-                                    <input type="number" class="subject-cost" value="1" min="1" max="2" step="0.5" required>
-                                    <div class="number-input">
-                                        <div>
-                                            <button onclick='this.parentNode.parentNode.parentNode.querySelector("input[type=number]").stepUp()' class="plus up"></button>
-                                        </div>
-                                        <div>
-                                            <button onclick='this.parentNode.parentNode.parentNode.querySelector("input[type=number]").stepDown()' class="down"></button>
-                                        </div>
-                                    </div> -->
+                                    <input type="text" name="subject" class="subject-name" value="" placeholder="Название предмета" pattern = "^[А-Яа-яЁё\s]+$">
                             </div>
+                            <div class="psevdo-trash"></div>
                         </div>
-                    </form>
+                    </div>
                     <div class="item">
-                        <div class="input-subject-psevdo"></div>
+                        <div class="input-psevdo"></div>
                         <div class="counter-add-circle" onclick="addInputSubject()"><div class="counter-add-plus"></div></div>
                     </div>
                 </div>
                 <div class="btn-next">
-                    <a href="#start-main" class="sub-btn pas-btn">назад</a>
-                    <a href="#teachers" class="sub-btn act-btn">далее</a>
+                    <a href="#start-main" class="sub-btn pas-btn margin-right">назад</a>
+                    <a href="#teachers" onclick="update_lvl('subject')" id="#btnLoad" class="sub-btn act-btn">далее</a>
                 </div>
-            </div>
-        </section>
-        <div class="nav-psevdo-right"></div>
-        <section class="landing-choose-teachers">
-            <a name="teachers"></a>
-            <div>
-                <div>
-                    <h1>Добавь преподавателей
-                        <svg class="icon-info"
-                             viewBox="0 0 20 20"
-                             fill="none"
-                             xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9 7H11V5H9V7ZM10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM9 15H11V9H9V15Z"
-                              fill="black"/>
-                        </svg>
-                    </h1>
-                </div>
+            </section>
+            <section class="landing-choose-teachers">
+                <a name="teachers"></a>
+                <h1>Добавь преподавателей
+                    <!-- <svg class="icon-info"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 7H11V5H9V7ZM10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM9 15H11V9H9V15Z"
+                        fill="black"/>
+                    </svg> -->
+                </h1>
+                <div class="info-text">Добавьте преподавателей и соотвествующие предметы, которые они ведут</div>
                 <div class="help-button">
-                    <button class="sub-btn act-btn" onclick="delAllInput('input-teacher-')">Удалить все</button>
+                    <a class="sub-btn act-btn" onclick="delAllInput('input-teacher-')">Удалить все</a>
                 </div>
                 <div class="boxer">
-                    <form id="input-teacher" class="landing-form">
-                        {% csrf_token %}
+                    <div id="input-teacher">
                         <div id="input-teacher-0" class="item">
                             <div class="input-teacher">
-                                    <input type="text" class="teacher-name-first" value="" placeholder="Карпунин" pattern = "^[а-яА-ЯЁё]+$" required>
-                                    <input type="text" class="teacher-name-second" value="" placeholder="Николай" pattern = "^[а-яА-ЯЁё]+$" required>
-                                    <input type="text" class="teacher-name-third" value="" placeholder="Сергеевич" pattern = "^[а-яА-ЯЁё]+$" required>
-                                    <!-- <input type="text" class="teacher-name-third" value="" placeholder="Отчество" pattern="[А-Яа-я ]{20}" required> -->
-                                    <select class = "list-of-subjects" onchange="getComboA(this)">
-                                        <option class = "option-disabled" value="" disabled selected>Выбери предмет</option>
-                                    </select>
+                                    <input type="text" class="teacher-name-first" name="teacher" value="" placeholder="Романов Роман Алексеевич" pattern = "^[а-яА-ЯЁё ]+$" required>
+                                    <select class="list-of-subjects-using-select" name="teacher-subject" required multiple title="Выберите предметы..." data-selected-text-format="count > 2" data-size="5" data-actions-box="true" data-live-search="true" data-header="Готово"></select> <!-- data-actions-box="true" -->
                             </div>
+                            <div class="psevdo-trash"></div>
                         </div>
-                    </form>
+                    </div>
                     <div class="item">
-                        <div class="input-teacher-psevdo"></div>
+                        <div class="input-psevdo"></div>
                         <div class="counter-add-circle" onclick="addInputTeacher()"><div class="counter-add-plus"></div></div>
                     </div>
                 </div>
                 <div class="btn-next">
-                    <a href="#subjects" class="sub-btn pas-btn">назад</a>
-                    <a href="#classes" class="sub-btn act-btn">далее</a>
+                    <a href="#subjects" class="sub-btn pas-btn margin-right">назад</a>
+                    <a href="#classes" onclick="update_lvl('teacher')" class="sub-btn act-btn">далее</a>
                 </div>
-            </div>
-        </section>
-        <div class="nav-psevdo-right"></div>
-        <section class="landing-choose-classes">
-            <a name="classes"></a>
-            <div>
-                <div>
-                    <h1>Добавь классы
-                        <svg class="icon-info"
-                             viewBox="0 0 20 20"
-                             fill="none"
-                             xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9 7H11V5H9V7ZM10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM9 15H11V9H9V15Z"
-                              fill="black"/>
-                        </svg>
-                    </h1>
-                </div>
+            </section>
+            <section class="landing-choose-classes">
+                <a name="classes"></a>
+                <h1>Добавь классы
+                    <!-- <svg class="icon-info"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 7H11V5H9V7ZM10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM9 15H11V9H9V15Z"
+                        fill="black"/>
+                    </svg> -->
+                </h1>
+                <div class="info-text">Добавте название классов вашей школы, укажите максимальное кол-во уроков в день, которое может быть у соответствующего класса, а так же кол-во учебных дней в неделю</div>
                 <div class="help-button">
-                    <button class="sub-btn act-btn" onclick="delAllInput('input-classes-')">Удалить все</button>
+                    <a class="sub-btn act-btn" onclick="delAllInput('input-classes-')">Удалить все</a>
                 </div>
                 <div class="boxer">
-                    <form id="input-classes" class="landing-form">
-                        {% csrf_token %}
+                    <div id="input-classes">
                         <div id="input-classes-0" class="item">
                             <div class="input-classes">
-                                    <input type="text" class="classes-name-number" value="" placeholder="5" pattern="[0-9]{1,2}" required>
-                                    <input type="text" class="classes-name-letter" value="" placeholder="А" pattern="[А-Яа-я]{1}" required>
-                                    <span class="description-text">кол-во уроков в день:</span>
-                                    <input type="number" class="classes-max-lessons" value="4" min="4" max="9" step="1" required>
-                                    <div class="number-input-max-lessons">
-                                        <div>
-                                            <button onclick='this.parentNode.parentNode.parentNode.querySelector("input[type=number]").stepUp()' class="plus up"></button>
-                                        </div>
-                                        <div>
-                                            <button onclick='this.parentNode.parentNode.parentNode.querySelector("input[type=number]").stepDown()' class="down"></button>
-                                        </div>
-                                    </div>
-                                    <span class="description-text">кол-во уч. дней в неделю:</span>
-                                    <input type="number" class="classes-study-day" value="5" min="5" max="6" step="1" required>
-                                    <div class="number-input-study-day">
-                                        <div>
-                                            <button onclick='this.parentNode.parentNode.parentNode.getElementsByClassName("classes-study-day")[0].stepUp()' class="plus up"></button>
-                                        </div>
-                                        <div>
-                                            <button onclick='this.parentNode.parentNode.parentNode.getElementsByClassName("classes-study-day")[0].stepDown()' class="down"></button>
-                                        </div>
+                                    <input type="text" class="classes-name-number" name="class_number" value="" placeholder="5" pattern="[0-9]{1,2}" required>
+                                    <input type="text" class="classes-name-letter" name="class_letter" value="" placeholder="А" pattern="[А-Яа-я]{1}" required>
+                                    <!-- <div>
+                                        <span class="description-text">кол-во уроков в день:</span>
+                                        <select class="choose-count" name="classes-max-lessons" required title="кол-во уроков в день..." data-size="5">
+                                            <option value="4" selected>4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                        </select>
+                                        <select name="classes-max-lessons" class="choose-count">
+                                            <option value="4" selected>4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                        </select>
+                                    </div> -->
+                                    <div>
+                                        <span class="description-text">кол-во уч. дней в неделю:</span>
+                                        <select name="classes-study-day" class="choose-count" required>
+                                            <option value="5" selected>5</option>
+                                            <option value="6">6</option>
+                                        </select>
                                     </div>
                             </div>
+                            <div class="psevdo-trash"></div>
                         </div>
-                    </form>
+                    </div>
                     <div class="item">
-                        <div class="input-classes-psevdo"></div>
+                        <div class="input-psevdo"></div>
                         <div class="counter-add-circle" onclick="addInputClasses()"><div class="counter-add-plus"></div></div>
                     </div>
                 </div>
                 <div class="btn-next">
-                    <a href="#teachers" class="sub-btn pas-btn">назад</a>
-                    <a href="#courses" class="sub-btn act-btn">далее</a>
+                    <a href="#teachers" class="sub-btn pas-btn margin-right">назад</a>
+                    <a href="#courses" onclick="update_lvl('classes')" class="sub-btn act-btn">далее</a>
                 </div>
-            </div>
-        </section>
-        <div class="nav-psevdo-right"></div>
-        <section class="landing-choose-courses">
-            <a name="courses"></a>
-            <div>
-                <div>
-                    <h1>Добавь курсы
-                        <svg class="icon-info"
-                             viewBox="0 0 20 20"
-                             fill="none"
-                             xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9 7H11V5H9V7ZM10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM9 15H11V9H9V15Z"
-                              fill="black"/>
-                        </svg>
-                    </h1>
-                </div>
+            </section>
+            <section class="landing-choose-courses">
+                <a name="courses"></a>
+                <h1>Добавь курсы
+                    <!-- <svg class="icon-info"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 7H11V5H9V7ZM10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM9 15H11V9H9V15Z"
+                        fill="black"/>
+                    </svg> -->
+                </h1>
+                <div class="info-text">Сперва - выберите класс, затем определите преподавателей и предметы, которые они будут вести у этого класса, а так же укажите количество этих предметов в неделю</div>
                 <div>
                     <p class="standart-p">Выберите класс ниже:</p>
                     <div id = "avaliable-classes" class="avaliable-classes"></div>
                 </div>
                 <div id="box-courses" class="boxer"></div>
                 <div class="btn-next">
-                    <a href="#classes" class="sub-btn pas-btn">назад</a>
-                    <a href="#option" class="sub-btn act-btn">далее</a>
+                    <a href="#classes" class="sub-btn pas-btn margin-right">назад</a>
+                    <button href="#finish" type="submit" class="sub-btn act-btn">готово</button>
+                </div>
+            </section>
+            <!-- <section class="landing-choose-option">
+                <a name="option"></a>
+                <div>
+                    <div>
+                        <h1>Настройки
+                            <svg class="icon-info"
+                                viewBox="0 0 20 20"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 7H11V5H9V7ZM10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM9 15H11V9H9V15Z"
+                                fill="black"/>
+                            </svg>
+                        </h1>
+                    </div>
+                    <div class="boxer">
+                    </div>
+                    <div class="btn-next">
+                        <a href="#courses" class="sub-btn pas-btn">назад</a>
+                        <button href="#finish" type="submit" class="sub-btn act-btn">готово</button>
+                    </div>
+                </div>
+            </section> -->
+            <div id="loading_box" class="preloader">
+                <div class="preloader__row">
+                  <div class="preloader__item"></div>
+                  <div class="preloader__item"></div>
                 </div>
             </div>
-        </section>
-        <div class="nav-psevdo-right"></div>
-        <section class="landing-choose-option">
-            <a name="option"></a>
-            <div>
-                <div>
-                    <h1>Настройки
-                        <svg class="icon-info"
-                             viewBox="0 0 20 20"
-                             fill="none"
-                             xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9 7H11V5H9V7ZM10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM9 15H11V9H9V15Z"
-                              fill="black"/>
-                        </svg>
-                    </h1>
-                </div>
+            <section class="landing-choose-finish">
+                <a name="finish"></a>
+                <h1>Результат
+                    <!-- <svg class="icon-info"
+                            viewBox="0 0 20 20"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 7H11V5H9V7ZM10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM9 15H11V9H9V15Z"
+                            fill="black"/>
+                    </svg> -->
+                </h1>
                 <div class="boxer">
+                    <a id="link-link"></a>
                 </div>
                 <div class="btn-next">
                     <a href="#courses" class="sub-btn pas-btn">назад</a>
-                    <form method = "get">
-                        <button href="#finish" onclick="send_info()" class="sub-btn act-btn">готово</a>
-                    </form>
                 </div>
+            </section>
+        </form>
+        <!-- <div class="nav-psevdo-right"></div> -->
+        <!-- <div id="loading_box" class="preloader">
+            <div class="preloader__row">
+              <div class="preloader__item"></div>
+              <div class="preloader__item"></div>
             </div>
-        </section>
-        <div class="nav-psevdo-right"></div>
+        </div>
         <section class="landing-choose-finish">
             <a name="finish"></a>
             <div>
@@ -244,15 +286,27 @@
                     </h1>
                 </div>
                 <div class="boxer">
+                    <a id="link-link"></a>
                 </div>
                 <div class="btn-next">
-                    <a href="#option" class="sub-btn pas-btn">назад</a>
+                    <a href="#courses" class="sub-btn pas-btn">назад</a>
                 </div>
             </div>
-        </section>
+        </section> -->
+        <!-- <div class="nav-psevdo-right"></div> -->
     </div>
   </body>
-<script src="{% static 'lending/main.js' %}"></script>
+  {% block javascript %}
+  <script src="{% static 'lending/js/jquery 3.5.1/jquery.min.js' %}"></script>
+  <script src="{% static 'lending/js/bootstrap/bootstrap.bundle.js' %}"></script>
+  <script src="{% static 'lending/js/bootstrap/bootstrap-select.min.js' %}"></script>
+  <script src="{% static 'lending/js/ajax.js' %}"></script>
+  <script src="{% static 'lending/js/subjects.js' %}"></script>
+  <script src="{% static 'lending/js/teachers.js' %}"></script>
+  <script src="{% static 'lending/js/classes.js' %}"></script>
+  <script src="{% static 'lending/js/courses.js' %}"></script>
+  <script src="{% static 'lending/js/main.js' %}"></script>
+  {% endblock javascript %}
 </html>
 
 
