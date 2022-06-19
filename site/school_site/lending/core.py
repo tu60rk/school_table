@@ -224,7 +224,10 @@ class SchoolTable():
 
             result_df = pd.concat([result_df, df_day])  
 
-        return result_df
+        result_df.columns = set([i[j].Class for i in self.COURSES for j in i.keys()])
+        result_df['Номер урока'] = result_df.index + 1
+        result_df['День недели'] = ['Понедельник'] * 8 + ['Вторник'] * 8 + ["Среда"] * 8 + ["Четверг"] * 8 + ["Пятница"] * 8 + ["Субоота"] * 8
+        return result_df[['День недели', "Номер урока"] + list(set([i[j].Class for i in self.COURSES for j in i.keys()]))]
 
     def get_grah_teachertimetable(self, timetable : list) -> None:
     
@@ -237,4 +240,7 @@ class SchoolTable():
 
             result_df = pd.concat([result_df, df_day])  
 
-        return result_df
+        result_df.columns = set([i[j].Class for i in self.COURSES for j in i.keys()])
+        result_df['Номер урока'] = result_df.index + 1
+        result_df['День недели'] = ['Понедельник'] * 8 + ['Вторник'] * 8 + ["Среда"] * 8 + ["Четверг"] * 8 + ["Пятница"] * 8 + ["Субоота"] * 8
+        return result_df[['День недели', "Номер урока"] + list(set([i[j].Class for i in self.COURSES for j in i.keys()]))]

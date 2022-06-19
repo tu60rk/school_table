@@ -12,12 +12,16 @@ from .getting_data import get_data
 from .core import SchoolTable
 
 
-def prepared_classes(number, letter, count_lessons, count_day):
+def prepared_classes(number, letter, count_day):
     # prepera data classes
     classes_settings = {}
-    for class_number, class_letter, classes_max_lessons, classes_study_day  in zip(number, letter, count_lessons, count_day):
-        classes_settings_description = namedtuple('classes_settings_description', ['classes_max_lessons', 'classes_study_day'])
-        classes_settings[str(class_number) + class_letter] = classes_settings_description(classes_max_lessons, classes_study_day)
+    # for class_number, class_letter, classes_max_lessons, classes_study_day  in zip(number, letter, count_lessons, count_day):
+    #     classes_settings_description = namedtuple('classes_settings_description', ['classes_max_lessons', 'classes_study_day'])
+    #     classes_settings[str(class_number) + class_letter] = classes_settings_description(classes_max_lessons, classes_study_day)
+    for class_number, class_letter, classes_study_day  in zip(number, letter, count_day):
+        classes_settings_description = namedtuple('classes_settings_description', ['classes_study_day'])
+        classes_settings[str(class_number) + class_letter] = classes_settings_description(classes_study_day)
+
     return classes_settings
 
 def prepared_teachers(teacher, subject):
@@ -63,10 +67,11 @@ def index(request):
     if request.method == 'POST':
         POST = dict(request.POST)
         try:
+            print(POST)
             classes_settings = prepared_classes(
                 POST['class_number'],
                 POST['class_letter'],
-                POST['classes-max-lessons'],
+                #POST['classes-max-lessons'],
                 POST['classes-study-day']
             )
 
