@@ -57,6 +57,9 @@ let sub = 0;
                         <svg class="trash" viewBox="0 0 50 50" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg"><path d="M32 17H28.5L27.5 16H22.5L21.5 17H18V19H32V17ZM19 32C19 32.5304 19.2107 33.0391 19.5858 33.4142C19.9609 33.7893 20.4696 34 21 34H29C29.5304 34 30.0391 33.7893 30.4142 33.4142C30.7893 33.0391 31 32.5304 31 32V20H19V32Z" fill="#979797"/></svg>\
                      </div>';
     profile.appendChild(div);
+
+    let scroll_to_bottom = document.getElementsByClassName('boxer')[0];
+	scrollBottom(scroll_to_bottom);
   };
 
 

@@ -121,3 +121,7 @@ function update_lvl(lvl) {
             checkSelectionClasses();
       };
 };
+
+function scrollBottom(element) {
+    element.scroll({ top: element.scrollHeight, behavior: "smooth"});
+};
