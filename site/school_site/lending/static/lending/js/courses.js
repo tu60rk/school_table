@@ -20,7 +20,7 @@ let courses = 0;
     // <select name="courses_teacher" class="list-of-teachers" required><option class = "option-disabled" value="" disabled selected>Выбери учителя</option></select> \
     div.innerHTML = '<div class="input-courses"> \
                         <input type="text" name="courses_classes" value="'+ String(idd.split('-')[2]) +'" class="not-display">' + getHtmlTeachers() + '\
-                        <select id="list-of-subjects-using-select" class="list-of-subjects-using-select" data-width="auto" name="teacher-subject" required disabled title="Выберите предмет..." data-size="5" data-live-search="true"></select>\
+                        <select id="list-of-subjects-using-select" class="list-of-subjects-using-select" data-width="auto" name="courses_subject" required disabled title="Выберите предмет..." data-size="5" data-live-search="true"></select>\
                         <div>\
                             <span class="description-text not-active-description-text">Кол-во занятий:</span> \
                             <select name="courses_count_lessons" class="choose-count" disabled data-size="5">\
@@ -114,7 +114,7 @@ function createBox(id){
                     <div id="input-courses-0" class="item">\
                             <div class="input-courses">\
                                     <input type="text" name="courses_classes" value="'+ String(id) +'" class="not-display">' + getHtmlTeachers() + '\
-                                    <select id="list-of-subjects-using-select" class="list-of-subjects-using-select" data-width="auto" name="teacher-subject" required disabled title="Выберите предмет..." data-size="5" data-live-search="true"></select>\
+                                    <select id="list-of-subjects-using-select" class="list-of-subjects-using-select" data-width="auto" name="courses_subject" required disabled title="Выберите предмет..." data-size="5" data-live-search="true"></select>\
                                     <div>\
                                         <span class="description-text not-active-description-text">Кол-во занятий:</span>\
                                         <select name="courses_count_lessons" class="choose-count" disabled data-size="5">\
