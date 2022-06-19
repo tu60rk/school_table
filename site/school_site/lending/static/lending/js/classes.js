@@ -29,6 +29,9 @@ let classes = 0;
                     </div> ';
     profile.appendChild(div);
     $('.choose-count').selectpicker('refresh');
+
+    let scroll_to_bottom = document.getElementsByClassName('boxer')[2];
+	scrollBottom(scroll_to_bottom);
   };
 
 

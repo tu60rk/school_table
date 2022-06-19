@@ -292,6 +292,11 @@ button.pas-btn {
 .description-text{
     font-size: 15px;
     color: black;
+    margin-left: 35px;
+}
+
+.not-active-description-text{
+    color: #0003 !important;
 }
 
 .counter-add-circle {
@@ -482,6 +487,12 @@ svg.trash:hover path{
     margin-bottom: 10px !important;
     margin-top: 10px !important;
 } */
+
+
+.list-of-teachers-using-select
+{
+    margin-right: 35px;
+}
 
 .list-of-subjects,
 .list-of-teachers
@@ -722,6 +733,10 @@ svg.trash:hover path{
 .bootstrap-select>.dropdown-toggle.bs-placeholder {
     color: #0003;
     /* margin: 10px 0; */
+}
+
+.btn-light.disabled, .btn-light:disabled {
+    color: #0003 !important;
 }
 
 /* .bootstrap-select .dropdown-toggle .filter-option-inner-inner {

@@ -28,6 +28,8 @@ let teach = 0;
     profile.appendChild(div)
 
     $('.list-of-subjects-using-select').selectpicker('refresh');
+    let scroll_to_bottom = document.getElementsByClassName('boxer')[1];
+	scrollBottom(scroll_to_bottom);
   };
 
 /**
@@ -45,8 +47,8 @@ let teach = 0;
     };
     //console.log('TEACHERS! ', elements);
     let name_tag = 'name="courses_teacher" ';
-    let add_to_select = 'required title="Выберите преподавателя..." data-live-search="true">';
-    let html = '<select class = "list-of-teachers-using-select" ' + name_tag + add_to_select;
+    let add_to_select = 'required title="Выберите преподавателя..." data-live-search="true" data-width="auto">';
+    let html = '<select id = "list-of-teachers-using-select" class = "list-of-teachers-using-select" ' + name_tag + add_to_select;
     //html += '<option class = "option-disabled" value="" disabled selected>Выбери учителя</option>';
 
     for (let element of teachers) {
@@ -81,12 +83,11 @@ let teach = 0;
             if (teachers_array[key]){
                 teachers_array[key].add(val);
             } else {  
-                teachers_array[key] = new Set([val]);
+                teachers_array[key] = new Set(val);
             };
         }
         i+=1;
     }
-    //console.log('TEACHERS', teachers_array);
     return teachers_array
 };
 

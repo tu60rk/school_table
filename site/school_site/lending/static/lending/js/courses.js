@@ -20,10 +20,10 @@ let courses = 0;
     // <select name="courses_teacher" class="list-of-teachers" required><option class = "option-disabled" value="" disabled selected>Выбери учителя</option></select> \
     div.innerHTML = '<div class="input-courses"> \
                         <input type="text" name="courses_classes" value="'+ String(idd.split('-')[2]) +'" class="not-display">' + getHtmlTeachers() + '\
-                        <select class="list-of-subjects-using-select" name="teacher-subject" required disabled title="Выберите предмет..." data-size="5" data-live-search="true"></select>\
+                        <select id="list-of-subjects-using-select" class="list-of-subjects-using-select" data-width="auto" name="teacher-subject" required disabled title="Выберите предмет..." data-size="5" data-live-search="true"></select>\
                         <div>\
-                            <span class="description-text">Кол-во занятий:</span> \
-                            <select name="courses_count_lessons" class="choose-count" disabled>\
+                            <span class="description-text not-active-description-text">Кол-во занятий:</span> \
+                            <select name="courses_count_lessons" class="choose-count" disabled data-size="5">\
                                     <option value="1" selected>1</option>\
                                     <option value="2">2</option>\
                                     <option value="3">3</option>\
@@ -46,6 +46,11 @@ let courses = 0;
     $('.list-of-subjects-using-select').selectpicker('refresh');
     $('.list-of-teachers-using-select').selectpicker('refresh');
     $('.choose-count').selectpicker('refresh');
+
+    let scroll_to_bottom = document.getElementsByClassName('landing-choose-courses')[0].getElementsByClassName('box');
+    for (let box of scroll_to_bottom){
+        scrollBottom(box);
+    };
 };
 
 /**
@@ -109,10 +114,10 @@ function createBox(id){
                     <div id="input-courses-0" class="item">\
                             <div class="input-courses">\
                                     <input type="text" name="courses_classes" value="'+ String(id) +'" class="not-display">' + getHtmlTeachers() + '\
-                                    <select class="list-of-subjects-using-select" name="teacher-subject" required disabled title="Выберите предмет..." data-size="5" data-live-search="true"></select>\
+                                    <select id="list-of-subjects-using-select" class="list-of-subjects-using-select" data-width="auto" name="teacher-subject" required disabled title="Выберите предмет..." data-size="5" data-live-search="true"></select>\
                                     <div>\
-                                        <span class="description-text">Кол-во занятий:</span>\
-                                        <select name="courses_count_lessons" class="choose-count" disabled>\
+                                        <span class="description-text not-active-description-text">Кол-во занятий:</span>\
+                                        <select name="courses_count_lessons" class="choose-count" disabled data-size="5">\
                                                 <option value="1" selected>1</option>\
                                                 <option value="2">2</option>\
                                                 <option value="3">3</option>\
@@ -140,76 +145,66 @@ function createBox(id){
     $('.choose-count').selectpicker('refresh');
 };
 
-$('select').on('change', function(e){
-    console.log(this.value,
-                this.options[this.selectedIndex].value,
-                $(this).find("option:selected").val(),);
-  });
+$(document).on('change', '#list-of-teachers-using-select', function(e){
 
-// function upd(){
-//     // $('select').on('change', function(e){
-//     //     console.log(this.value,
-//     //                 this.options[this.selectedIndex].value,
-//     //                 $(this).find("option:selected").val(),);
-//     //   });
-//     console.log('upd!');
-//     let n = document.querySelectorAll('list-of-teachers-using-select');
-//     for (let el of n) {
-//       if (el.value) {
-//           console.log(el.value);
-//           el.nextElementSibling.removeAttribute('disabled')
-//       }  
-//     };
-// };
-// setInterval(upd, 1);
+                let value = this.value;
+                let elements_main = this.parentNode.parentNode.getElementsByClassName('list-of-subjects-using-select');
 
-// function get_available(element){
-//     console.log('ELEMENT!', element);
-//     console.log('ELEMENT NEXT!', element.nextElementSibling);
-// };
+                if (elements_main[0].classList.contains('disabled') != -1) {
+                    elements_main[0].getElementsByTagName('select')[0].disabled = false;
+                    elements_main[0].getElementsByTagName('button')[0].classList.remove('disabled');
+                    elements_main[0].classList.remove('disabled');
+                };
+                
+                //console.log(subjects);
+                let subjects = getArrayTeachers()[value];
+                let selected = false;
 
-// for (let item of document.querySelectorAll(".list-of-teachers-using-select")) {
-//     console.log('HERE!');
-//     item.addEventListener('click', but => {
-//         //remove_class();
-//         console.log(item.nextElementSibling);
-//         item.nextElementSibling.removeAttribute('disabled');//classList.add("class-active");
-//         $('.list-of-teachers-using-select').selectpicker('refresh');
-//     });
-// };
+                if (subjects.size == 1){
+                    selected = true;
+                    elements_main = this.parentNode.parentNode.getElementsByClassName('choose-count');
+                    if (elements_main[0].classList.contains('disabled') != -1) {
+                        elements_main[0].getElementsByTagName('select')[0].disabled = false;
+                        elements_main[0].getElementsByTagName('button')[0].classList.remove('disabled');
+                        this.parentNode.parentNode.getElementsByClassName('description-text')[0].classList.remove('not-active-description-text');
+                        elements_main[0].classList.remove('disabled'); 
+                    };
+                };
+                
+                // remove
+                let options = this.parentNode.parentNode.getElementsByClassName('list-of-subjects-using-select')[0].getElementsByTagName('option')
+                let cc = 1;
 
-// document.querySelectorAll(".list-of-teachers-using-select").onclick = function(event) {
-//     let td = event.target.closest('select'); // (1)
-  
-//     if (!td) return; // (2)
-  
-//     //if (!table.contains(td)) return; // (3)
-//     console.log('HERE!', td);
-//     //highlight(td); // (4)
-//   };
+                for (let option of options){
+                    if (cc === 1) {
+                        cc += 1;
+                        continue;
+                    };
+                    console.log(option);
+                    option.remove();
+                };
+                
+                for (let subject of subjects) {
+                    let new_option = document.createElement('option');
+                    new_option.value = subject;
+                    new_option.innerHTML = subject;
+                    new_option.defaultSelected = selected;
+                    this.parentNode.parentNode.getElementsByClassName('list-of-subjects-using-select')[0].getElementsByTagName('select')[0].appendChild(new_option);
+                };
 
-// select.onclick() = function(event){
+                $('.list-of-subjects-using-select').selectpicker('refresh');
+});
+
+
+$(document).on('change', '#list-of-subjects-using-select', function(e){
     
-//     console.log('XM', event.target);
-// }
+    elements_main = this.parentNode.parentNode.getElementsByClassName('choose-count');
+    if (elements_main[0].classList.contains('disabled') != -1) {
+        elements_main[0].getElementsByTagName('select')[0].disabled = false;
+        elements_main[0].getElementsByTagName('button')[0].classList.remove('disabled');
+        this.parentNode.parentNode.getElementsByClassName('description-text')[0].classList.remove('not-active-description-text');
+        elements_main[0].classList.remove('disabled'); 
+    };
 
-// const select = document.querySelector('select');
-// select.addEventListener('change', addMe);
-// select.addEventListener('mouseup', changeMe);
-// let chosen = [];
-
-// function changeMe(e) {
-//   select.removeEventListener('mouseup', changeMe);
-//   select.dispatchEvent(new Event('change'));
-// }
-
-// function addMe(e) {
-//   chosen.push(e.target.options[e.target.selectedIndex].value);
-//   console.log(chosen);
-// }
-
-$('.btn').on('click', function() {
-    // действия, которые будут выполнены при наступлении события...
-    console.log('123');
-    console.log($(this).text());
-  });
+    $('.choose-count').selectpicker('refresh');
+});
