@@ -125,3 +125,13 @@ function update_lvl(lvl) {
 function scrollBottom(element) {
     element.scroll({ top: element.scrollHeight, behavior: "smooth"});
 };
+
+
+function open_menu(){
+    let block = document.getElementsByClassName('setting')[0];
+    if (block.style.display === 'flex') {
+        block.style.display = 'none';
+    } else {
+        block.style.display = 'flex'
+    }
+};
