@@ -9,6 +9,38 @@
     <link rel="stylesheet" type="text/css" href="{% static 'lending/css/style.css' %}">
 </head>
   <body>
+    <div class="menu">
+        <a class="menu-link">Войти
+            <img class = "icon-login" src="{% static 'lending/img/icon-login.png' %}">
+        </a>
+        <a class="menu-link" onclick="open_menu()">Настройки
+            <img class = "icon-setting" src="{% static 'lending/img/icon-setting.png' %}">
+        </a>
+    </div>
+    <div class="setting">
+        <div class="triagle"></div>
+        <div class="setting-block">
+            <p class="setting-block-text">Стандартная настройка</p>
+            <label class="switch">
+                <input name="standart-setting" type="checkbox" checked>
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div class="setting-block">
+            <p class="setting-block-text">Оптимизировать расписание</p>
+            <label class="switch">
+                <input name="optim-algorithm" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div class="setting-block">
+            <p class="setting-block-text">Время работы алгоритма:</p>
+            <div>
+                <input name="algorithm-time" class="algorithm-time" type="text" placeholder="5">
+                <label>сек.</label>
+            </div>
+        </div>
+    </div>
     <a name="start-main"></a>
     <section class="landing-main-start">
         <div class="landing-section-content">
