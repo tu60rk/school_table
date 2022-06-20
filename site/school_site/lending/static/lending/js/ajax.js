@@ -29,6 +29,9 @@ $(document).ready(function () {
                    link.classList.remove("not-display");
                    link.download = response.file_name;
                    link.innerText = 'Скачать результат';
+                   let div = document.createElement('div');
+                   div.innerHTML = response.timetable_grah;
+                   document.getElementsByClassName('landing-choose-finish')[0].getElementsByClassName('boxer')[0].appendChild(div);
                   }else{
                     link.innerText = 'Упс! Алгоритм не смог обработать данные.</br> Попробуйте поменять их и повторите снова.';
               }

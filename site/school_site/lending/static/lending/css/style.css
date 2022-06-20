@@ -58,10 +58,6 @@ p {
     margin-top: unset;
 }
 
-/* a:not([href]) {
-    color: none;
-    text-decoration: none;
-} */
 
 /* end setting of html tags */
 
@@ -311,26 +307,11 @@ button.pas-btn {
     cursor: pointer;
 }
 
-/* .icon-info:hover+div {
-    display: block;
-    font-size: 14px;
-    vertical-align: middle;
-    color: #737B7D;
-    position: absolute;
-} */
 .info-text {
     max-width: 500px;
     margin-bottom: 50px;
     color: #949596;
 }
-/* .info-text {
-    width: 400px;
-    display: block;
-    font-size: 14px;
-    vertical-align: middle;
-    color: #737B7D;
-    position: absolute;
-} */
 
 .help-button{
     margin-bottom: 40px;
@@ -363,9 +344,6 @@ button.pas-btn {
     align-items: center;
 }
 
-/* .input-subject-psevdo,
-.input-teacher-psevdo,
-.input-classes-psevdo, */
 .input-psevdo {
     border-radius: 10px;
     border: dashed rgba(115, 123, 125, 0.06);
@@ -570,11 +548,7 @@ svg.trash:hover path{
     top: 505px;
 }
 
-/*.nav-item-five{
-    top: 570px;
-}*/
 .nav-item-six{
-    /*top:695px;*/
     top: 650px;
 }
 
@@ -617,14 +591,6 @@ svg.trash:hover path{
     flex-wrap: wrap;
 }
 
-/* .list-of-subjects-using-select,
-.list-of-teachers-using-select
-{
-    margin-bottom: 10px !important;
-    margin-top: 10px !important;
-} */
-
-
 .list-of-teachers-using-select
 {
     margin-right: 35px;
@@ -649,11 +615,8 @@ svg.trash:hover path{
     display: flex;
     background-color: rgba(60, 100, 177, 0.5);
     border-radius: 10px;
-    /* padding-top: 10px;
-    padding-bottom: 10px; */
     padding-left: 25px;
     padding-right: 25px;
-    /* width: 90%; */
     align-items: center;
 }
 
@@ -860,7 +823,6 @@ svg.trash:hover path{
     background-color: rgba(60, 100, 177, 0.01);
     border: none;
     line-height: normal;
-    /* padding: 5px 2px; */
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -868,20 +830,37 @@ svg.trash:hover path{
 
 .bootstrap-select>.dropdown-toggle.bs-placeholder {
     color: #0003;
-    /* margin: 10px 0; */
 }
 
 .btn-light.disabled, .btn-light:disabled {
     color: #0003 !important;
 }
 
-/* .bootstrap-select .dropdown-toggle .filter-option-inner-inner {
-    overflow: hidden;
-    margin-top: 10px;
-} */
-
 /* Автозаполнение */
 
 input:-internal-autofill-selected {
     background-color: rgba(60, 100, 177, 0.01) !important;
 }
+
+table {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 14px;
+    border-collapse: collapse;
+    text-align: center;
+    }
+    th, td:first-child {
+    background: #AFCDE7;
+    color: white;
+    padding: 10px 20px;
+    }
+    th, td {
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    border-color: white;
+    }
+    td {
+    background: #D8E6F3;
+    }
+    th:first-child, td:first-child {
+    text-align: left;
+    }

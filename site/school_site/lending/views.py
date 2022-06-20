@@ -89,6 +89,9 @@ def index(request):
             params = get_data(courses)
             timetable = SchoolTable(*params.get_params_default(), courses)
             result = timetable.get_timetable()
+            if result:
+                print('Ok')
+                
             timetable_grah = timetable.get_grah_timetable(result)
             timetable_grah_teacher = timetable.get_grah_teachertimetable(result)
 
@@ -98,7 +101,7 @@ def index(request):
             file_name = '%s.xlsx'%now.strftime("%Y-%m-%d-%H-%M-%S")
             full_file_path = os.path.join(file_path, file_name)
             timetable_grah.to_excel(path + full_file_path)
-            return JsonResponse({'code': 200, 'file_path': file_path, 'file_name': file_name})
+            return JsonResponse({'code': 200, 'file_path': file_path, 'file_name': file_name, 'timetable_grah' : timetable_grah.to_html(index=False)})
         except django.utils.datastructures.MultiValueDictKeyError as err:
             print(err)
     return render(request, 'lending/index.html')
