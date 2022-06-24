@@ -864,3 +864,7 @@ table {
     th:first-child, td:first-child {
     text-align: left;
     }
+
+    .info-user{
+        display: none;
+    }

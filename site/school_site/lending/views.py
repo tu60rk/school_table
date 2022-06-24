@@ -1,12 +1,13 @@
-import os, datetime
+import os, datetime, django
 
 import pandas as pd
-import django
+import hashlib
 
 from collections import namedtuple
 
 from django.shortcuts import render
 from django.http import JsonResponse
+from lending.models import Users
 
 from .getting_data import get_data
 from .core import SchoolTable
@@ -68,6 +69,26 @@ def index(request):
         POST = dict(request.POST)
         try:
             print(POST)
+            string_data = '{0} {1} {2} {3} {4}'.format(
+                    POST['city'],
+                    POST['country'],
+                    POST['ip'],
+                    POST['loc'],
+                    POST['region']
+                )  
+            hash_object = hashlib.md5(string_data.encode('utf-8'))
+            print(hash_object.hexdigest())
+
+            p = Users(
+                city = POST['city'][0], 
+                country = POST['country'][0],
+                ip = POST['ip'][0],
+                loc = POST['loc'][0],
+                region = POST['region'][0],
+                hashsum = hash_object.hexdigest()
+            )
+            p.save()
+
             classes_settings = prepared_classes(
                 POST['class_number'],
                 POST['class_letter'],

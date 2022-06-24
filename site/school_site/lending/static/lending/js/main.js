@@ -1,5 +1,5 @@
-$('.choose-count').selectpicker('refresh');
 
+get_user_info();
 /**
  * @name delInput
  * @description delete html element by it id.
