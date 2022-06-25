@@ -98,6 +98,7 @@
         </div>
         <form id="main_form" class="main_form" method="post">
             {% csrf_token %}
+            <div id="info-user" class="info-user"></div>
             <section class="landing-choose-subjects">
                 <a name="subjects"></a>
                 <h1>Добавь предметы
@@ -307,6 +308,7 @@
   <script src="{% static 'lending/js/teachers.js' %}"></script>
   <script src="{% static 'lending/js/classes.js' %}"></script>
   <script src="{% static 'lending/js/courses.js' %}"></script>
+  <script src="{% static 'lending/js/user_info.js' %}"></script>
   <script src="{% static 'lending/js/main.js' %}"></script>
   {% endblock javascript %}
 </html>
