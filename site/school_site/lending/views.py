@@ -6,8 +6,9 @@ import hashlib
 from collections import namedtuple
 
 from django.shortcuts import render
+from django.db.models import Max
 from django.http import JsonResponse
-from lending.models import Users
+from lending.models import Users, DataForAlgorithm
 
 from .getting_data import get_data
 from .core import SchoolTable
@@ -58,6 +59,77 @@ def prepared_courses(clses, teachers, subjects, count_lessons):
     courses.append(class_)
     return courses
 
+def get_hash(POST):
+    return Users.objects.get(
+                            city = POST['city'][0], 
+                            country = POST['country'][0],
+                            ip = POST['ip'][0],
+                            loc = POST['loc'][0],
+                            region = POST['region'][0]
+                        )
+
+def get_algorithm_filter(hash):
+    return DataForAlgorithm.objects.filter(hashsum = hash)
+
+def save_user(POST:dict) -> None:
+    string_data = '{0} {1} {2} {3} {4}'.format(
+                    POST['city'],
+                    POST['country'],
+                    POST['ip'],
+                    POST['loc'],
+                    POST['region']
+                )
+    hash_object = hashlib.md5(string_data.encode('utf-8'))
+    p = Users(
+        city = POST['city'][0], 
+        country = POST['country'][0],
+        ip = POST['ip'][0],
+        loc = POST['loc'][0],
+        region = POST['region'][0],
+        hashsum = hash_object.hexdigest()
+    )
+    p.save()
+
+def delete_last_data_and_get_counter(POST:dict) -> int:
+    hash = get_hash(POST)
+    alg = get_algorithm_filter(hash=hash)
+
+    if alg.count() == 0:
+        return 1
+    max_counter = alg.aggregate(Max('counter'))['counter__max']
+    if max_counter == 5:
+        # delete
+        alg.get(counter = 1).delete()
+        # update
+        for i in [2,3,4,5]:
+            p = alg.get(counter = i)
+            p.counter = i - 1
+            p.save()
+        return 5
+    else:
+        return max_counter + 1
+
+def load_data(POST:dict) -> None:
+
+    classes = prepared_classes(POST['class_number'], POST['class_letter'], POST['classes-study-day'])
+    counter = delete_last_data_and_get_counter(POST)
+    for cls, teacher, subject, count_lesson in zip(
+                POST['courses_classes'],
+                POST['courses_teacher'],
+                POST['courses_subject'],
+                POST['courses_count_lessons']
+                ):
+        
+        p = DataForAlgorithm(
+            hashsum = get_hash(POST),
+            counter = counter,
+            class_number = cls,
+            teacher_fio = teacher,
+            subject_name = subject,
+            count_lessons_per_week = count_lesson,
+            count_study_day = int(classes[cls].classes_study_day)
+        )
+        p.save()
 
 def index(request):
     """
@@ -69,32 +141,8 @@ def index(request):
         POST = dict(request.POST)
         try:
             print(POST)
-            string_data = '{0} {1} {2} {3} {4}'.format(
-                    POST['city'],
-                    POST['country'],
-                    POST['ip'],
-                    POST['loc'],
-                    POST['region']
-                )  
-            hash_object = hashlib.md5(string_data.encode('utf-8'))
-            print(hash_object.hexdigest())
-
-            p = Users(
-                city = POST['city'][0], 
-                country = POST['country'][0],
-                ip = POST['ip'][0],
-                loc = POST['loc'][0],
-                region = POST['region'][0],
-                hashsum = hash_object.hexdigest()
-            )
-            p.save()
-
-            classes_settings = prepared_classes(
-                POST['class_number'],
-                POST['class_letter'],
-                #POST['classes-max-lessons'],
-                POST['classes-study-day']
-            )
+            save_user(POST)
+            load_data(POST)
 
             teachers = prepared_teachers(
                 POST['teacher'],
@@ -110,8 +158,6 @@ def index(request):
             params = get_data(courses)
             timetable = SchoolTable(*params.get_params_default(), courses)
             result = timetable.get_timetable()
-            if result:
-                print('Ok')
                 
             timetable_grah = timetable.get_grah_timetable(result)
             timetable_grah_teacher = timetable.get_grah_teachertimetable(result)
