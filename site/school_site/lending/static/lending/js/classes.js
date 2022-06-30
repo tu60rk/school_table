@@ -1,24 +1,61 @@
 let classes = 0;
 
+
+function get_number_class(value){
+    if (value.length === 3){
+        return value.slice(0,2)
+    } if (value.length === 2) {
+        return value.slice(0,1)
+    } else {
+        RangeError('Ошибка в кол-ве символов в классе', value);
+    }
+};
+
+function get_letter_class(value){
+    if (value.length === 3){
+        return value.slice(2,3)
+    } if (value.length === 2) {
+        return value.slice(1,2)
+    } else {
+        RangeError('Ошибка в кол-ве символов в классе', value);
+    }
+};
+
 /**
  * @name addInputClasses
  * @description create html element div.
  */
- function addInputClasses() {
+ function addInputClasses(class_name = '', count_selected = '') {
     let res = ++classes;
     let profile = document.getElementById('input-classes');
     let div = document.createElement('div');
-  
+    
+    let class_number = '';
+    let class_letter = '';
+    if (class_name != '') {
+        class_number = get_number_class(class_name);
+        class_letter = get_letter_class(class_name);
+    };
+
+    let option_selected = '';
+    if (count_selected === '5' || count_selected === '') {
+        option_selected = '<option value="5" selected>5</option> \
+                           <option value="6">6</option>'
+    } else {
+        option_selected = '<option value="5">5</option> \
+                           <option value="6" selected>6</option>'
+    };
+    
+
     div.id = 'input-classes-' + res;
     div.classList.add('item');
     div.innerHTML = '<div class="input-classes"> \
-                        <input type="text" name="class_number" class="classes-name-number" value="" placeholder="5" pattern="[0-9]{1,2}" required> \
-                        <input type="text" name="class_letter" class="classes-name-letter" value="" placeholder="А" pattern="[А-Яа-я]{1}" required> \
+                        <input type="text" name="class_number" class="classes-name-number" value="' + class_number +'" placeholder="5" pattern="[0-9]{1,2}" required> \
+                        <input type="text" name="class_letter" class="classes-name-letter" value="' + class_letter +'" placeholder="А" pattern="[А-Яа-я]{1}" required> \
                         <div> \
                             <span class="description-text">кол-во уч. дней в неделю:</span> \
                             <select name="classes-study-day" class="choose-count" data-width="50px" required> \
-                                <option value="5" selected>5</option> \
-                                <option value="6">6</option> \
+                            ' + option_selected +'\
                             </select> \
                         </div> \
                     </div> \
@@ -95,14 +132,6 @@ function remove_class() {
         item.classList.remove("class-active");
     }
 }
-// if click on class than give him class "available-active" and others delete "available-active"
-// let nn = document.querySelector("#avaliable-classes > a");
-// if (document.querySelectorAll("#avaliable-classes a").addEventListener('click', 
-//     )) {
-//     //addStandartLessonsEvent.addEventListener('click', addStandartLessons, false)
-//     console.log(nn);
-//     console.log('HERE!');
-// }
 
 function check_active_classes() {
     for (let item of document.querySelectorAll("#avaliable-classes a")) {
@@ -112,4 +141,3 @@ function check_active_classes() {
         });
     };
 };
-//document.querySelector("#avaliable-classes > a")

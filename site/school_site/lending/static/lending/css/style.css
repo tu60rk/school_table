@@ -193,9 +193,18 @@ input:checked + .slider {
 
 /* END menu in top */
 
+.style-btn{
+    margin: 0 0;
+    margin-left: 15px;
+}
+
 .main-container {
     display: flex;
     flex-wrap: wrap;
+}
+
+.margin-bottom-20{
+    margin-bottom: 20px;
 }
 
 .landing-main-start {
@@ -269,6 +278,11 @@ button.pas-btn {
     background-color: rgba(60, 100, 177, 0.05);
     color: #3C64B1;
     border-color: #3C64B1;
+}
+
+.information{
+    display: none;
+    color: black;
 }
 
 /* end first page */
@@ -596,7 +610,7 @@ svg.trash:hover path{
     margin-right: 35px;
 }
 
-.list-of-subjects,
+/* .list-of-subjects,
 .list-of-teachers
 {
     overflow: scroll;
@@ -608,7 +622,7 @@ svg.trash:hover path{
     cursor: pointer;
     border-bottom: 1px solid black;
     margin-right: 35px;
-}
+} */
 
 /* sector class start */
 .input-classes{
@@ -705,11 +719,11 @@ svg.trash:hover path{
     visibility: hidden;
 }
 
-.box{
+/* .box{
     position: absolute;
     overflow: scroll;
     max-height: 500px;
-}
+} */
 
 .vis-box{
     visibility: visible;

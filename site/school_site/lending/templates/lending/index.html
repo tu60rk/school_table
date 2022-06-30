@@ -10,36 +10,12 @@
 </head>
   <body>
     <div class="menu">
-        <a class="menu-link">Войти
+        <!-- <a class="menu-link">Войти
             <img class = "icon-login" src="{% static 'lending/img/icon-login.png' %}">
-        </a>
+        </a> -->
         <a class="menu-link" onclick="open_menu()">Настройки
             <img class = "icon-setting" src="{% static 'lending/img/icon-setting.png' %}">
         </a>
-    </div>
-    <div class="setting">
-        <div class="triagle"></div>
-        <div class="setting-block">
-            <p class="setting-block-text">Стандартная настройка</p>
-            <label class="switch">
-                <input name="standart-setting" type="checkbox" checked>
-                <span class="slider round"></span>
-            </label>
-        </div>
-        <div class="setting-block">
-            <p class="setting-block-text">Оптимизировать расписание</p>
-            <label class="switch">
-                <input name="optim-algorithm" type="checkbox">
-                <span class="slider round"></span>
-            </label>
-        </div>
-        <div class="setting-block">
-            <p class="setting-block-text">Время работы алгоритма:</p>
-            <div>
-                <input name="algorithm-time" class="algorithm-time" type="text" placeholder="5">
-                <label>сек.</label>
-            </div>
-        </div>
     </div>
     <a name="start-main"></a>
     <section class="landing-main-start">
@@ -48,7 +24,16 @@
           <p class="landing-main-text">
             Используя данное приложение, вы получите школьное расписание в нужном Вам виде.</br>Быстро. Просто. Удобно.
           </p>
-          <a href="#subjects" class="sub-btn act-btn">Построить расписание</a>
+          <div class="main-container margin-bottom-20">
+            <a href="#subjects" class="sub-btn act-btn">Построить расписание</a>
+            <form id="use_data" method="post" class="style-btn">
+                {% csrf_token %}
+                <div id="info-user-first" class="info-user"></div>
+                <input class='not-display' type="text" name="algorithm" value="False"/>
+                <button href="#" class="sub-btn act-btn" type="submit">Использовать последние данные</button>
+            </form>
+          </div>
+          <div id="havt-data" class="information"></div>
       </div>
     </section>
     <div class="main-container">
@@ -98,7 +83,32 @@
         </div>
         <form id="main_form" class="main_form" method="post">
             {% csrf_token %}
-            <div id="info-user" class="info-user"></div>
+            <div class="setting">
+                <div class="triagle"></div>
+                <div class="setting-block">
+                    <p class="setting-block-text">Стандартная настройка</p>
+                    <label class="switch">
+                        <input name="standart-setting" type="checkbox" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="setting-block">
+                    <p class="setting-block-text">Оптимизировать расписание</p>
+                    <label class="switch">
+                        <input name="optim-algorithm" type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="setting-block">
+                    <p class="setting-block-text">Время работы алгоритма:</p>
+                    <div>
+                        <input name="algorithm-time" class="algorithm-time" type="text" placeholder="5">
+                        <label>сек.</label>
+                    </div>
+                </div>
+            </div>
+            <div id="info-user-second" class="info-user"></div>
+            <input class='not-display' type="text" name="algorithm" value="True"/>
             <section class="landing-choose-subjects">
                 <a name="subjects"></a>
                 <h1>Добавь предметы
@@ -112,8 +122,8 @@
                 </h1>
                 <div class="info-text">Составьте список из предметов, которые преподают в вашей школе</div>
                 <div class="help-button">
-                    <a class="sub-btn pas-btn margin-right" id="addstandartlessons">Добавить предметы автоматически</a>
-                    <a class="sub-btn act-btn" onclick="delAllInput('input-subject-')">Удалить все</a>
+                    <a class="sub-btn act-btn margin-right" id="addstandartlessons">Добавить предметы автоматически</a>
+                    <a class="sub-btn pas-btn" onclick="delAllInput('input-subject-')">Удалить все</a>
                 </div>
                 <div class="boxer">
                     <div id="input-subject">
@@ -147,7 +157,7 @@
                 </h1>
                 <div class="info-text">Добавьте преподавателей и соотвествующие предметы, которые они ведут</div>
                 <div class="help-button">
-                    <a class="sub-btn act-btn" onclick="delAllInput('input-teacher-')">Удалить все</a>
+                    <a class="sub-btn pas-btn" onclick="delAllInput('input-teacher-')">Удалить все</a>
                 </div>
                 <div class="boxer">
                     <div id="input-teacher">
@@ -182,7 +192,7 @@
                 </h1>
                 <div class="info-text">Добавте название классов вашей школы, укажите максимальное кол-во уроков в день, которое может быть у соответствующего класса, а так же кол-во учебных дней в неделю</div>
                 <div class="help-button">
-                    <a class="sub-btn act-btn" onclick="delAllInput('input-classes-')">Удалить все</a>
+                    <a class="sub-btn pas-btn" onclick="delAllInput('input-classes-')">Удалить все</a>
                 </div>
                 <div class="boxer">
                     <div id="input-classes">
