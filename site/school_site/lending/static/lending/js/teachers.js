@@ -37,7 +37,7 @@ let teach = 0;
  * @description create html tag 'select' with options including name subjects
  * @returns {string} getHtmlTeachers
  */
- function getHtmlTeachers() {
+ function getHtmlTeachers(teacher_selected = '') {
      // <select name="courses_teacher" class="list-of-teachers" required><option class = "option-disabled" value="" disabled selected>Выбери учителя</option></select>
     let elements = getTeachers();
     let teachers = new Set();
@@ -52,9 +52,14 @@ let teach = 0;
     //html += '<option class = "option-disabled" value="" disabled selected>Выбери учителя</option>';
 
     for (let element of teachers) {
-        html += '<option value = "'+ element + '">' + element + '</option>';
+        if (element === teacher_selected) {
+            html += '<option value = "'+ element + '" selected>' + element + '</option>';
+        }
+        else {
+            html += '<option value = "'+ element + '">' + element + '</option>';
+        }
     };
-    //console.log(html);
+
     return html += '</select>';
 };
 

@@ -139,9 +139,49 @@ function add_classes(response){
 
 };
 
-// function add_courses(response){
+function add_courses(response){
 
-// };
+    let datas = new Set();
+    for (let data of response.data){
+        datas.add(data.class_number + ';' + data.teacher_fio + ';' + data.subject_name + ';' + data.count_lessons_per_week);
+    };
+
+    let classes = getClasses();
+    for (let class_ of classes){
+        if (document.getElementById('input-courses-' + String(class_)) === null ){
+            
+            let counter = 0;
+            for (let data of datas){
+                let teacher_fio = data.split(';')[1];
+                let subject_name = data.split(';')[2];
+                let count_lessons_per_week = data.split(';')[3];
+
+                if (data.includes(class_) && counter == 0){
+                    createBox(class_, teacher_fio, subject_name, count_lessons_per_week);
+                } if (data.includes(class_)) {
+                    addInputCourses('input-courses-' + class_, teacher_fio, subject_name, count_lessons_per_week);
+                };
+                counter += 1;
+            };
+        } else {
+            for (let div of document.getElementById('input-courses-' + String(class_)).getElementsByClassName('item')){
+                div.remove();
+            };
+
+            let counter = 0;
+            for (let data of datas){
+                let teacher_fio = data.split(';')[1];
+                let subject_name = data.split(';')[2];
+                let count_lessons_per_week = data.split(';')[3];
+
+                if (data.includes(class_)) {
+                    addInputCourses(class_, teacher_fio, subject_name, count_lessons_per_week);
+                }
+                counter += 1;
+            };
+        };
+    };
+};
 
 // send request about havinf data in bd
 $(document).ready(function () {
@@ -157,7 +197,7 @@ $(document).ready(function () {
                     add_subjects(response);
                     add_teachers(response);
                     add_classes(response);
-                    // add_courses(response);
+                    add_courses(response);
                     let div = document.getElementById('havt-data');
                     div.innerText = response.text;
                     div.classList.add('activate');
