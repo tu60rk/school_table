@@ -724,7 +724,7 @@ svg.trash:hover path{
 .box{
     position: absolute;
     overflow: auto;
-    max-height: 500px;
+    max-height: 300px;
 }
 
 .vis-box{
