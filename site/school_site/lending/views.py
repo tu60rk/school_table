@@ -99,12 +99,14 @@ def delete_last_data_and_get_counter(POST:dict) -> int:
     max_counter = alg.aggregate(Max('counter'))['counter__max']
     if max_counter == 5:
         # delete
-        alg.get(counter = 1).delete()
+        alg.filter(counter = 1).delete()
         # update
         for i in [2,3,4,5]:
-            p = alg.get(counter = i)
-            p.counter = i - 1
-            p.save()
+            alg.filter(counter = i).update(counter = i - 1)
+            #p = alg.filter(counter = i)
+            #p.update(counter=p)
+            #p.counter = i - 1
+            #p.save()
         return 5
     else:
         return max_counter + 1

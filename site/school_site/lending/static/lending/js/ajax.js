@@ -135,6 +135,7 @@ function add_classes(response){
         } else {
             addInputClasses(class_name, count_study_day);
         };
+        counter += 1;
     })
 
 };
@@ -155,13 +156,15 @@ function add_courses(response){
                 let teacher_fio = data.split(';')[1];
                 let subject_name = data.split(';')[2];
                 let count_lessons_per_week = data.split(';')[3];
-
-                if (data.includes(class_) && counter == 0){
+                console.log('COUNTER! ', counter);
+                if (data.includes(class_) && counter === 0){
+                    console.log('CREATE BOX!');
                     createBox(class_, teacher_fio, subject_name, count_lessons_per_week);
-                } if (data.includes(class_)) {
+                    counter += 1;
+                } else if (data.includes(class_)) {
                     addInputCourses('input-courses-' + class_, teacher_fio, subject_name, count_lessons_per_week);
+                    counter += 1;
                 };
-                counter += 1;
             };
         } else {
             for (let div of document.getElementById('input-courses-' + String(class_)).getElementsByClassName('item')){
@@ -176,8 +179,8 @@ function add_courses(response){
 
                 if (data.includes(class_)) {
                     addInputCourses(class_, teacher_fio, subject_name, count_lessons_per_week);
+                    counter += 1;
                 }
-                counter += 1;
             };
         };
     };

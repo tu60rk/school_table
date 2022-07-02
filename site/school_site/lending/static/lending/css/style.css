@@ -719,11 +719,11 @@ svg.trash:hover path{
     visibility: hidden;
 }
 
-/* .box{
+.box{
     position: absolute;
     overflow: scroll;
     max-height: 500px;
-} */
+}
 
 .vis-box{
     visibility: visible;
