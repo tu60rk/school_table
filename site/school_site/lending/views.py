@@ -103,10 +103,6 @@ def delete_last_data_and_get_counter(POST:dict) -> int:
         # update
         for i in [2,3,4,5]:
             alg.filter(counter = i).update(counter = i - 1)
-            #p = alg.filter(counter = i)
-            #p.update(counter=p)
-            #p.counter = i - 1
-            #p.save()
         return 5
     else:
         return max_counter + 1
@@ -143,6 +139,10 @@ def go_algorithm(POST):
     try:
         save_user(POST)
         load_data(POST)
+
+        #'standart-setting': ['on']
+        #'optim-algorithm': ['on']
+        #'algorithm-time': ['']
 
         teachers = prepared_teachers(
             POST['teacher'],

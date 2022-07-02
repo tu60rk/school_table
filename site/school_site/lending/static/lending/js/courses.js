@@ -10,8 +10,6 @@ let courses = 0;
  */
  function addInputCourses(idd, input_teacher = '', input_subject = '', input_count_lessons = '') {
     let res = ++courses;
-
-    console.log('IDD: ', idd);
     
     let profile = document.getElementById(idd).getElementsByTagName('div')[0];
     let div = document.createElement('div');
@@ -146,7 +144,6 @@ function create_subjects(teacher, input_subject){
     for (let subject of subjects){
         let selected = '';
         if (subject === input_subject){
-            console.log('SUBJECT: ', subject, input_subject);
             selected = 'selected';
         };
 
@@ -223,7 +220,6 @@ function createBox(id, input_teacher = '', input_subject = '', input_count_lesso
                         </div>\
                         ' + second_create_box;
     } else {
-        console.log('HERE!', input_teacher, input_subject, input_count_lessons);
         box.innerHTML = first_create_box + getHtmlTeachers(input_teacher) + '\
         <select id="list-of-subjects-using-select" class="list-of-subjects-using-select" data-width="auto" name="courses_subject" required title="Выберите предмет..." data-size="5" data-live-search="true"'+ disabled +'> \
         ' + create_subjects(input_teacher, input_subject) +'\
@@ -278,7 +274,6 @@ $(document).on('change', '#list-of-teachers-using-select', function(e){
                         cc += 1;
                         continue;
                     };
-                    console.log(option);
                     option.remove();
                 };
                 

@@ -20,7 +20,7 @@ let sub = 0;
     let add_to_select = '';
 
     if (class_name === 'list-of-subjects-using-select') {
-        add_to_select = 'required multiple title="Выберите предметы..." data-selected-text-format="count > 2" data-size="5" data-actions-box="true" data-live-search="true" data-header="Готово">'
+        add_to_select = 'required multiple title="Выберите предметы..." data-selected-text-format="count > 2" data-size="5" data-actions-box="true" data-live-search="true" data-header="Готово" data-width="250px">'
     } else {
         add_to_select = 'required>'
     };
