@@ -99,12 +99,10 @@ def delete_last_data_and_get_counter(POST:dict) -> int:
     max_counter = alg.aggregate(Max('counter'))['counter__max']
     if max_counter == 5:
         # delete
-        alg.get(counter = 1).delete()
+        alg.filter(counter = 1).delete()
         # update
         for i in [2,3,4,5]:
-            p = alg.get(counter = i)
-            p.counter = i - 1
-            p.save()
+            alg.filter(counter = i).update(counter = i - 1)
         return 5
     else:
         return max_counter + 1
@@ -131,44 +129,80 @@ def load_data(POST:dict) -> None:
         )
         p.save()
 
+def index_two(request):
+    context = {
+    'firstname': 'Linus',
+    }
+    return render(request, 'lending/index.html', context=context)
+
+def go_algorithm(POST):
+    try:
+        save_user(POST)
+        load_data(POST)
+
+        #'standart-setting': ['on']
+        #'optim-algorithm': ['on']
+        #'algorithm-time': ['']
+
+        teachers = prepared_teachers(
+            POST['teacher'],
+            POST['teacher-subject']
+        )
+
+        courses = prepared_courses(
+            POST['courses_classes'],
+            POST['courses_teacher'],
+            POST['courses_subject'],
+            POST['courses_count_lessons']
+        )
+        params = get_data(courses)
+        timetable = SchoolTable(*params.get_params_default(), courses)
+        result = timetable.get_timetable()
+            
+        timetable_grah = timetable.get_grah_timetable(result)
+        timetable_grah_teacher = timetable.get_grah_teachertimetable(result)
+
+        now = datetime.datetime.now()
+        path = '/Users/romanromanov/Documents/GitHub/school_table/site/school_site/lending'
+        file_path = '/static/excel/'
+        file_name = '%s.xlsx'%now.strftime("%Y-%m-%d-%H-%M-%S")
+        full_file_path = os.path.join(file_path, file_name)
+        timetable_grah.to_excel(path + full_file_path)
+        return JsonResponse({'code': 200, 'file_path': file_path, 'file_name': file_name, 'timetable_grah' : timetable_grah.to_html(index=False)})
+    except django.utils.datastructures.MultiValueDictKeyError as err:
+        print(err)
+    
+
 def index(request):
     """
     This is controller function.
     :param request: instance class HttpReuqest has info about request.
     :return: instance class HttpResponse
     """
-    if request.method == 'POST':
+    context = {}
+
+    if request.method == 'POST' and dict(request.POST)['algorithm'][0] == 'True':
         POST = dict(request.POST)
+        return go_algorithm(POST)
+
+    if request.method == 'POST' and dict(request.POST)['algorithm'][0] == 'False':  
+        GET = dict(request.POST)
+        code = 200
+        data = ''
+        text = 'Мы прогрузили Ваши данные. Нажмите кнопку "Построить расписание", чтобы увидеть их.'
         try:
-            print(POST)
-            save_user(POST)
-            load_data(POST)
+            hash = get_hash(GET)
+            alg = get_algorithm_filter(hash=hash)
+            max_counter = alg.aggregate(Max('counter'))['counter__max']
+            alg = alg.filter(counter = max_counter)
+            data = list(alg.values())
+            if alg.count == 0:
+                code = 201
+                text = 'Данные отсутствуют! Возможно Вы у нас впервые :)'
+        except Users.DoesNotExist as err:
+            code = 201
+            text = 'Данные отсутствуют! Возможно Вы у нас впервые :)'
 
-            teachers = prepared_teachers(
-                POST['teacher'],
-                POST['teacher-subject']
-            )
-
-            courses = prepared_courses(
-                POST['courses_classes'],
-                POST['courses_teacher'],
-                POST['courses_subject'],
-                POST['courses_count_lessons']
-            )
-            params = get_data(courses)
-            timetable = SchoolTable(*params.get_params_default(), courses)
-            result = timetable.get_timetable()
-                
-            timetable_grah = timetable.get_grah_timetable(result)
-            timetable_grah_teacher = timetable.get_grah_teachertimetable(result)
-
-            now = datetime.datetime.now()
-            path = '/Users/romanromanov/Documents/GitHub/school_table/site/school_site/lending'
-            file_path = '/static/excel/'
-            file_name = '%s.xlsx'%now.strftime("%Y-%m-%d-%H-%M-%S")
-            full_file_path = os.path.join(file_path, file_name)
-            timetable_grah.to_excel(path + full_file_path)
-            return JsonResponse({'code': 200, 'file_path': file_path, 'file_name': file_name, 'timetable_grah' : timetable_grah.to_html(index=False)})
-        except django.utils.datastructures.MultiValueDictKeyError as err:
-            print(err)
-    return render(request, 'lending/index.html')
+        return JsonResponse({'code': code, 'data': data, 'text': text})
+        
+    return render(request, 'lending/index.html', context= context)

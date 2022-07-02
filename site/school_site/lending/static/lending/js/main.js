@@ -1,3 +1,7 @@
+$('.list-of-subjects-using-select').selectpicker('refresh');
+$('.list-of-teachers-using-select').selectpicker('refresh');
+$('.choose-count').selectpicker('refresh');
+
 
 get_user_info();
 /**
@@ -111,7 +115,7 @@ window.onscroll = function() {
 function update_lvl(lvl) {
     switch(lvl) {
         case 'subject':
-            checkSelectionSubjects();     
+            checkSelectionSubjects();  
         case 'teacher':
             checkSelectionSubjects(); 
             checkSelectionTeachers(); 

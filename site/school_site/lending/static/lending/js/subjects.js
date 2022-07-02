@@ -14,13 +14,13 @@ let sub = 0;
  * @description create html tag 'select' with options including name subjects
  * @returns {string} getHtmlSubjects
  */
- function getHtmlSubjects(class_name) {
+ function getHtmlSubjects(class_name, selected_subjects = new Set()) {
     let elements = getSubjects();
     let name_tag = 'name="teacher-subject" ';
     let add_to_select = '';
 
     if (class_name === 'list-of-subjects-using-select') {
-        add_to_select = 'required multiple title="Выберите предметы..." data-selected-text-format="count > 2" data-size="5" data-actions-box="true" data-live-search="true" data-header="Готово">'
+        add_to_select = 'required multiple title="Выберите предметы..." data-selected-text-format="count > 2" data-size="5" data-actions-box="true" data-live-search="true" data-header="Готово" data-width="250px">'
     } else {
         add_to_select = 'required>'
     };
@@ -31,7 +31,11 @@ let sub = 0;
     };
 
     for (let element of elements) {
-        html += '<option value = "'+ element.value + '">' + element.value + '</option>';
+        if (selected_subjects.has(element.value )){
+            html += '<option value = "'+ element.value + '" selected="selected">' + element.value + '</option>';
+        } else {
+            html += '<option value = "'+ element.value + '">' + element.value + '</option>';
+        };
     };
     return html += '</select>';
 };
@@ -76,48 +80,35 @@ function checkSelectionSubjects() {
         subjects.add(subject.value);
     };
 
-    //console.log('SUBJECTS! ', subjects);
-    let i = 0;
-    for (let class_name_select_tag of ['list-of-subjects-using-select', 'list-of-subjects']) {
-        for (let main_elem of document.getElementsByClassName(class_name_select_tag)) {
-            i += 1;
-            //console.log('Number! ', i)
-            //console.log('ELEM! ', main_elem);
-            let options = main_elem.getElementsByTagName('option');
-            
-            // delete
-            for (let option of options) {
-                // if (option.className == 'option-disabled') {
-                //     continue;
-                // };
-                //console.log('Option : ', option.value);
-                if (!subjects.has(option.value)) {
-                    //console.log('DELETE!', option.value);
-                    option.remove();
+    for (let i of [1,2,3,4]){
+        for (let main_elem of document.getElementsByTagName('select')) {
+            if (main_elem.classList.contains('list-of-subjects-using-select')) {
+
+                // delete
+                let options = main_elem.getElementsByTagName('option');
+                for (let option of options) {
+                    if (!subjects.has(option.value)) {
+                        option.remove();
+                    };
                 };
-            };
-            // add
-            let set_options = new Set();
-            let new_options = main_elem.getElementsByTagName('option');
-            for (let option of new_options){
-                set_options.add(option.value);
-            };
+                // add
+                let set_options = new Set();
+                let new_options = main_elem.getElementsByTagName('option');
 
-            //console.log('NEW OPTIONS! ', set_options);
-
-            for (let subject of subjects) {
-                if (!set_options.has(subject)) {
-                    //console.log('CREATE!', subject);
-                    let new_option = document.createElement('option');
-                    new_option.value = subject;
-                    new_option.innerHTML = subject;
-                    main_elem.appendChild(new_option);
+                for (let option of new_options){
+                    set_options.add(option.value);
                 };
-            };
-
-            if (class_name_select_tag === 'list-of-subjects-using-select') {
-                $('.list-of-subjects-using-select').selectpicker('refresh');
+                for (let subject of subjects) {
+                    if (!set_options.has(subject)) {
+                        //console.log('CREATE!', subject);
+                        let new_option = document.createElement('option');
+                        new_option.value = subject;
+                        new_option.innerHTML = subject;
+                        main_elem.appendChild(new_option);
+                    };
+                };           
             };
         };
     };
+    $('.list-of-subjects-using-select').selectpicker('refresh');
 };

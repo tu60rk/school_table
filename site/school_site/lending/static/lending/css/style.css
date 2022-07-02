@@ -3,7 +3,7 @@
 body {
     background-color: rgba(60, 100, 177, 0.10);
     font-family: Arial, Helvetica, sans-serif !important; 
-    overflow: hidden;
+    overflow: hidden !important;
     line-height: normal;
 }
 
@@ -58,7 +58,9 @@ p {
     margin-top: unset;
 }
 
-
+.h1{
+    margin-top: 100px;
+}
 /* end setting of html tags */
 
 /* START menu in top */
@@ -193,9 +195,18 @@ input:checked + .slider {
 
 /* END menu in top */
 
+.style-btn{
+    margin: 0 0;
+    margin-left: 15px;
+}
+
 .main-container {
     display: flex;
     flex-wrap: wrap;
+}
+
+.margin-bottom-20{
+    margin-bottom: 20px;
 }
 
 .landing-main-start {
@@ -271,6 +282,11 @@ button.pas-btn {
     border-color: #3C64B1;
 }
 
+.information{
+    display: none;
+    color: black;
+}
+
 /* end first page */
 
 /* Section of choose subject */
@@ -318,9 +334,9 @@ button.pas-btn {
 }
 
 .boxer {
-    max-height: 450px;
-    min-height: 450px;
-    overflow: scroll;
+    min-height: 300px;
+    max-height: 300px;
+    overflow: auto;
     margin-bottom: 50px;
     display: flex;
     flex-direction: column;
@@ -549,7 +565,7 @@ svg.trash:hover path{
 }
 
 .nav-item-six{
-    top: 650px;
+    top: 675px;
 }
 
 .btn-next {
@@ -596,7 +612,7 @@ svg.trash:hover path{
     margin-right: 35px;
 }
 
-.list-of-subjects,
+/* .list-of-subjects,
 .list-of-teachers
 {
     overflow: scroll;
@@ -608,7 +624,7 @@ svg.trash:hover path{
     cursor: pointer;
     border-bottom: 1px solid black;
     margin-right: 35px;
-}
+} */
 
 /* sector class start */
 .input-classes{
@@ -707,8 +723,8 @@ svg.trash:hover path{
 
 .box{
     position: absolute;
-    overflow: scroll;
-    max-height: 500px;
+    overflow: auto;
+    max-height: 300px;
 }
 
 .vis-box{
@@ -802,6 +818,11 @@ svg.trash:hover path{
 
 
   /* bootstrap css update */
+
+.inner .show{
+    overflow-y: hidden !important;
+    overflow-x: hidden !important;
+}
   .bootstrap-select > .dropdown-toggle {
     position: relative;
     width: 100%;
@@ -842,6 +863,7 @@ input:-internal-autofill-selected {
     background-color: rgba(60, 100, 177, 0.01) !important;
 }
 
+/* Таблица */
 table {
     font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
     font-size: 14px;

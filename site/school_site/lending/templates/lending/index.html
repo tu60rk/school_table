@@ -10,36 +10,12 @@
 </head>
   <body>
     <div class="menu">
-        <a class="menu-link">Войти
+        <!-- <a class="menu-link">Войти
             <img class = "icon-login" src="{% static 'lending/img/icon-login.png' %}">
-        </a>
+        </a> -->
         <a class="menu-link" onclick="open_menu()">Настройки
             <img class = "icon-setting" src="{% static 'lending/img/icon-setting.png' %}">
         </a>
-    </div>
-    <div class="setting">
-        <div class="triagle"></div>
-        <div class="setting-block">
-            <p class="setting-block-text">Стандартная настройка</p>
-            <label class="switch">
-                <input name="standart-setting" type="checkbox" checked>
-                <span class="slider round"></span>
-            </label>
-        </div>
-        <div class="setting-block">
-            <p class="setting-block-text">Оптимизировать расписание</p>
-            <label class="switch">
-                <input name="optim-algorithm" type="checkbox">
-                <span class="slider round"></span>
-            </label>
-        </div>
-        <div class="setting-block">
-            <p class="setting-block-text">Время работы алгоритма:</p>
-            <div>
-                <input name="algorithm-time" class="algorithm-time" type="text" placeholder="5">
-                <label>сек.</label>
-            </div>
-        </div>
     </div>
     <a name="start-main"></a>
     <section class="landing-main-start">
@@ -48,34 +24,43 @@
           <p class="landing-main-text">
             Используя данное приложение, вы получите школьное расписание в нужном Вам виде.</br>Быстро. Просто. Удобно.
           </p>
-          <a href="#subjects" class="sub-btn act-btn">Построить расписание</a>
+          <div class="main-container margin-bottom-20">
+            <a href="#subjects" class="sub-btn act-btn">Построить расписание</a>
+            <form id="use_data" method="post" class="style-btn">
+                {% csrf_token %}
+                <div id="info-user-first" class="info-user"></div>
+                <input class='not-display' type="text" name="algorithm" value="False"/>
+                <button href="#" class="sub-btn act-btn" type="submit">Использовать последние данные</button>
+            </form>
+          </div>
+          <div id="havt-data" class="information"></div>
       </div>
     </section>
     <div class="main-container">
         <div class="landing-nav-right">
             <div class="nav-item nav-item-one">
-                <a href="#subjects" onclick="update_lvl('subject')" class="nav-p">
+                <a href="#subjects" class="nav-p">
                     <p>Предметы</p>
                     <div class="nav-circle">1</div>
                 </a>
                 <div class="nav-line nav-line-one"></div>
             </div>
             <div class="nav-item nav-item-two">
-                <a href="#teachers" onclick="update_lvl('teacher')" class="nav-p">
+                <a href="#teachers" onclick="update_lvl('subject')" class="nav-p">
                     <p>Преподаватели</p>
                     <div class="nav-circle">2</div>
                 </a>
                 <div class="nav-line nav-line-two"></div>
             </div>
             <div class="nav-item nav-item-three">
-                <a href="#classes" onclick="update_lvl('classes')" class="nav-p">
+                <a href="#classes" onclick="update_lvl('teacher')" class="nav-p">
                     <p>Классы</p>
                     <div class="nav-circle">3</div>
                 </a>
                 <div class="nav-line nav-line-three"></div>
             </div>
             <div class="nav-item nav-item-four">
-                <a href="#courses" class="nav-p">
+                <a href="#courses" onclick="update_lvl('classes')" class="nav-p">
                     <p>Курсы</p>
                     <div class="nav-circle">4</div>
                 </a>
@@ -92,16 +77,41 @@
                 <a href="#finish" class="nav-p">
                     <p>Результат</p>
                     <div class="nav-circle">5</div>
-                    <div class="nav-line nav-line-six"></div>
+                    <!-- <div class="nav-line nav-line-six"></div> -->
                 </a>
             </div>
         </div>
         <form id="main_form" class="main_form" method="post">
             {% csrf_token %}
-            <div id="info-user" class="info-user"></div>
+            <div class="setting">
+                <div class="triagle"></div>
+                <div class="setting-block">
+                    <p class="setting-block-text">Стандартная настройка</p>
+                    <label class="switch">
+                        <input name="standart-setting" type="checkbox" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="setting-block">
+                    <p class="setting-block-text">Оптимизировать расписание</p>
+                    <label class="switch">
+                        <input name="optim-algorithm" type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="setting-block">
+                    <p class="setting-block-text">Время работы алгоритма:</p>
+                    <div>
+                        <input name="algorithm-time" class="algorithm-time" type="text" placeholder="30" pattern = "[0-9]" maxlength="2">
+                        <label>мин.</label>
+                    </div>
+                </div>
+            </div>
+            <div id="info-user-second" class="info-user"></div>
+            <input class='not-display' type="text" name="algorithm" value="True"/>
             <section class="landing-choose-subjects">
                 <a name="subjects"></a>
-                <h1>Добавь предметы
+                <h1 class="h1">Добавь предметы
                     <!-- <svg class="icon-info"
                         viewBox="0 0 20 20"
                         fill="none"
@@ -112,8 +122,8 @@
                 </h1>
                 <div class="info-text">Составьте список из предметов, которые преподают в вашей школе</div>
                 <div class="help-button">
-                    <a class="sub-btn pas-btn margin-right" id="addstandartlessons">Добавить предметы автоматически</a>
-                    <a class="sub-btn act-btn" onclick="delAllInput('input-subject-')">Удалить все</a>
+                    <a class="sub-btn act-btn margin-right" id="addstandartlessons">Добавить предметы автоматически</a>
+                    <a class="sub-btn pas-btn" onclick="delAllInput('input-subject-')">Удалить все</a>
                 </div>
                 <div class="boxer">
                     <div id="input-subject">
@@ -136,7 +146,7 @@
             </section>
             <section class="landing-choose-teachers">
                 <a name="teachers"></a>
-                <h1>Добавь преподавателей
+                <h1 class="h1">Добавь преподавателей
                     <!-- <svg class="icon-info"
                         viewBox="0 0 20 20"
                         fill="none"
@@ -147,14 +157,14 @@
                 </h1>
                 <div class="info-text">Добавьте преподавателей и соотвествующие предметы, которые они ведут</div>
                 <div class="help-button">
-                    <a class="sub-btn act-btn" onclick="delAllInput('input-teacher-')">Удалить все</a>
+                    <a class="sub-btn pas-btn" onclick="delAllInput('input-teacher-')">Удалить все</a>
                 </div>
                 <div class="boxer">
                     <div id="input-teacher">
                         <div id="input-teacher-0" class="item">
                             <div class="input-teacher">
                                     <input type="text" class="teacher-name-first" name="teacher" value="" placeholder="Романов Роман Алексеевич" pattern = "^[а-яА-ЯЁё ]+$" required>
-                                    <select class="list-of-subjects-using-select" name="teacher-subject" required multiple title="Выберите предметы..." data-selected-text-format="count > 2" data-size="5" data-actions-box="true" data-live-search="true" data-header="Готово"></select> <!-- data-actions-box="true" -->
+                                    <select class="list-of-subjects-using-select" name="teacher-subject" required multiple title="Выберите предметы..." data-selected-text-format="count > 2" data-size="5" data-actions-box="true" data-live-search="true" data-header="Готово" data-width="250px"></select> <!-- data-actions-box="true" -->
                             </div>
                             <div class="psevdo-trash"></div>
                         </div>
@@ -171,7 +181,7 @@
             </section>
             <section class="landing-choose-classes">
                 <a name="classes"></a>
-                <h1>Добавь классы
+                <h1 class="h1">Добавь классы
                     <!-- <svg class="icon-info"
                         viewBox="0 0 20 20"
                         fill="none"
@@ -182,7 +192,7 @@
                 </h1>
                 <div class="info-text">Добавте название классов вашей школы, укажите максимальное кол-во уроков в день, которое может быть у соответствующего класса, а так же кол-во учебных дней в неделю</div>
                 <div class="help-button">
-                    <a class="sub-btn act-btn" onclick="delAllInput('input-classes-')">Удалить все</a>
+                    <a class="sub-btn pas-btn" onclick="delAllInput('input-classes-')">Удалить все</a>
                 </div>
                 <div class="boxer">
                     <div id="input-classes">
@@ -230,7 +240,7 @@
             </section>
             <section class="landing-choose-courses">
                 <a name="courses"></a>
-                <h1>Добавь курсы
+                <h1 class="h1">Добавь курсы
                     <!-- <svg class="icon-info"
                         viewBox="0 0 20 20"
                         fill="none"
@@ -280,7 +290,7 @@
             </div>
             <section class="landing-choose-finish">
                 <a name="finish"></a>
-                <h1>Результат
+                <h1 class="h1">Результат
                     <!-- <svg class="icon-info"
                             viewBox="0 0 20 20"
                             fill="none"
