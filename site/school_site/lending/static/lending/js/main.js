@@ -12,8 +12,8 @@ get_user_info();
  * @param {string} k 
  */
 function delInput(name_id, k) {
-  var div = document.getElementById(name_id + k);
-  div.remove();
+    var div = document.getElementById(name_id + k);
+    div.remove();
 };
 
 /**
@@ -86,8 +86,8 @@ if (addStandartLessonsEvent.addEventListener) {
 /**
  * @description add classes 'nav-item-active', 'nav-item-active-p' to right navigation with scroll. 
  */
-window.onscroll = function() {
-    class_names = [['nav-item-one', 700], ['nav-item-two',1400], ['nav-item-three',2100], ['nav-item-four',2800], ['nav-item-six',3500]];
+window.onscroll = function () {
+    class_names = [['nav-item-one', 700], ['nav-item-two', 1400], ['nav-item-three', 2100], ['nav-item-four', 2800], ['nav-item-six', 3500]];
     // nav-item-two 1400 
     // nav-item-three 2100
     // nav-item-four 2800
@@ -101,7 +101,7 @@ window.onscroll = function() {
         let nav_circle = document.getElementsByClassName(name)[0].getElementsByClassName('nav-circle')[0];
         let nav_p = document.getElementsByClassName(name)[0].getElementsByClassName('nav-p')[0];
 
-        if ( window.pageYOffset > val && window.pageYOffset < val + 700 ) {
+        if (window.pageYOffset > val && window.pageYOffset < val + 700) {
             nav_circle.classList.add("nav-item-active");
             nav_p.classList.add("nav-item-active-p");
         } else {
@@ -113,25 +113,25 @@ window.onscroll = function() {
 
 
 function update_lvl(lvl) {
-    switch(lvl) {
+    switch (lvl) {
         case 'subject':
-            checkSelectionSubjects();  
+            checkSelectionSubjects();
         case 'teacher':
-            checkSelectionSubjects(); 
-            checkSelectionTeachers(); 
+            checkSelectionSubjects();
+            checkSelectionTeachers();
         case 'classes':
             checkSelectionSubjects();
             checkSelectionTeachers();
             checkSelectionClasses();
-      };
+    };
 };
 
 function scrollBottom(element) {
-    element.scroll({ top: element.scrollHeight, behavior: "smooth"});
+    element.scroll({ top: element.scrollHeight, behavior: "smooth" });
 };
 
 
-function open_menu(){
+function open_menu() {
     let block = document.getElementsByClassName('setting')[0];
     if (block.style.display === 'flex') {
         block.style.display = 'none';

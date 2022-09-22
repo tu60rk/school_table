@@ -1,4 +1,4 @@
-function create_element(tag, name, value){
+function create_element(tag, name, value) {
     let element = document.createElement(tag);
     element.type = "text";
     element.name = name;
@@ -6,7 +6,7 @@ function create_element(tag, name, value){
     return element;
 };
 
-function get_user_info(){
+function get_user_info() {
     $.get("https://ipinfo.io", function (response) {
         // let user_info = [
         //     'city..' + 'izhniy Novgorod',//response.city,
@@ -23,7 +23,7 @@ function get_user_info(){
             'region..' + response.region,
         ];
         //console.log(user_info);
-        for (let user of user_info){
+        for (let user of user_info) {
             let name = user.split('..')[0];
             let value = user.split('..')[1];
             document.getElementById('info-user-first').appendChild(create_element('input', name, value));
