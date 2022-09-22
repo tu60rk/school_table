@@ -140,10 +140,6 @@ def go_algorithm(POST):
         save_user(POST)
         load_data(POST)
 
-        #'standart-setting': ['on']
-        #'optim-algorithm': ['on']
-        #'algorithm-time': ['']
-
         teachers = prepared_teachers(
             POST['teacher'],
             POST['teacher-subject']
@@ -163,11 +159,11 @@ def go_algorithm(POST):
         timetable_grah_teacher = timetable.get_grah_teachertimetable(result)
 
         now = datetime.datetime.now()
-        path = '/Users/romanromanov/Documents/GitHub/school_table/site/school_site/lending'
-        file_path = '/static/excel/'
+        #path = '/Users/romanromanov/Documents/GitHub/school_table/site/school_site/lending'
+        file_path = os.getcwd() + '/lending/static/excel/'
         file_name = '%s.xlsx'%now.strftime("%Y-%m-%d-%H-%M-%S")
         full_file_path = os.path.join(file_path, file_name)
-        timetable_grah.to_excel(path + full_file_path)
+        timetable_grah.to_excel(full_file_path)
         return JsonResponse({'code': 200, 'file_path': file_path, 'file_name': file_name, 'timetable_grah' : timetable_grah.to_html(index=False)})
     except django.utils.datastructures.MultiValueDictKeyError as err:
         print(err)

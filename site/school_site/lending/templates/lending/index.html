@@ -1,5 +1,6 @@
 {% load static %}
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <title>School-Table</title>
@@ -8,33 +9,35 @@
     <link rel="stylesheet" type="text/css" href="{% static 'lending/css/bootstrap-select.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'lending/css/style.css' %}">
 </head>
-  <body>
+
+<body>
     <div class="menu">
         <!-- <a class="menu-link">Войти
             <img class = "icon-login" src="{% static 'lending/img/icon-login.png' %}">
         </a> -->
         <a class="menu-link" onclick="open_menu()">Настройки
-            <img class = "icon-setting" src="{% static 'lending/img/icon-setting.png' %}">
+            <img class="icon-setting" src="{% static 'lending/img/icon-setting.png' %}">
         </a>
     </div>
     <a name="start-main"></a>
     <section class="landing-main-start">
         <div class="landing-section-content">
-          <h1 class="brand">Школьное расписание</br>в несколько кликов!</h1>
-          <p class="landing-main-text">
-            Используя данное приложение, вы получите школьное расписание в нужном Вам виде.</br>Быстро. Просто. Удобно.
-          </p>
-          <div class="main-container margin-bottom-20">
-            <a href="#subjects" class="sub-btn act-btn">Построить расписание</a>
-            <form id="use_data" method="post" class="style-btn">
-                {% csrf_token %}
-                <div id="info-user-first" class="info-user"></div>
-                <input class='not-display' type="text" name="algorithm" value="False"/>
-                <button href="#" class="sub-btn act-btn" type="submit">Использовать последние данные</button>
-            </form>
-          </div>
-          <div id="havt-data" class="information"></div>
-      </div>
+            <h1 class="brand">Школьное расписание</br>в несколько кликов!</h1>
+            <p class="landing-main-text">
+                Используя данное приложение, вы получите школьное расписание в нужном Вам виде.</br>Быстро. Просто.
+                Удобно.
+            </p>
+            <div class="main-container margin-bottom-20">
+                <a href="#subjects" class="sub-btn act-btn">Построить расписание</a>
+                <form id="use_data" method="post" class="style-btn">
+                    {% csrf_token %}
+                    <div id="info-user-first" class="info-user"></div>
+                    <input class='not-display' type="text" name="algorithm" value="False" />
+                    <button href="#" class="sub-btn act-btn" type="submit">Использовать последние данные</button>
+                </form>
+            </div>
+            <div id="havt-data" class="information"></div>
+        </div>
     </section>
     <div class="main-container">
         <div class="landing-nav-right">
@@ -102,13 +105,14 @@
                 <div class="setting-block">
                     <p class="setting-block-text">Время работы алгоритма:</p>
                     <div>
-                        <input name="algorithm-time" class="algorithm-time" type="text" placeholder="30" pattern = "[0-9]" maxlength="2">
+                        <input name="algorithm-time" class="algorithm-time" type="text" placeholder="30" pattern="[0-9]"
+                            maxlength="2">
                         <label>мин.</label>
                     </div>
                 </div>
             </div>
             <div id="info-user-second" class="info-user"></div>
-            <input class='not-display' type="text" name="algorithm" value="True"/>
+            <input class='not-display' type="text" name="algorithm" value="True" />
             <section class="landing-choose-subjects">
                 <a name="subjects"></a>
                 <h1 class="h1">Добавь предметы
@@ -129,14 +133,17 @@
                     <div id="input-subject">
                         <div id="input-subject-0" class="item">
                             <div class="input-subject">
-                                    <input type="text" name="subject" class="subject-name" value="" placeholder="Название предмета" pattern = "^[А-Яа-яЁё\s]+$">
+                                <input type="text" name="subject" class="subject-name" value=""
+                                    placeholder="Название предмета" pattern="^[А-Яа-яЁё\s]+$">
                             </div>
                             <div class="psevdo-trash"></div>
                         </div>
                     </div>
                     <div class="item">
                         <div class="input-psevdo"></div>
-                        <div class="counter-add-circle" onclick="addInputSubject()"><div class="counter-add-plus"></div></div>
+                        <div class="counter-add-circle" onclick="addInputSubject()">
+                            <div class="counter-add-plus"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="btn-next">
@@ -163,15 +170,21 @@
                     <div id="input-teacher">
                         <div id="input-teacher-0" class="item">
                             <div class="input-teacher">
-                                    <input type="text" class="teacher-name-first" name="teacher" value="" placeholder="Романов Роман Алексеевич" pattern = "^[а-яА-ЯЁё ]+$" required>
-                                    <select class="list-of-subjects-using-select" name="teacher-subject" required multiple title="Выберите предметы..." data-selected-text-format="count > 2" data-size="5" data-actions-box="true" data-live-search="true" data-header="Готово" data-width="250px"></select> <!-- data-actions-box="true" -->
+                                <input type="text" class="teacher-name-first" name="teacher" value=""
+                                    placeholder="Романов Роман Алексеевич" pattern="^[а-яА-ЯЁё ]+$" required>
+                                <select class="list-of-subjects-using-select" name="teacher-subject" required multiple
+                                    title="Выберите предметы..." data-selected-text-format="count > 2" data-size="5"
+                                    data-actions-box="true" data-live-search="true" data-header="Готово"
+                                    data-width="250px"></select> <!-- data-actions-box="true" -->
                             </div>
                             <div class="psevdo-trash"></div>
                         </div>
                     </div>
                     <div class="item">
                         <div class="input-psevdo"></div>
-                        <div class="counter-add-circle" onclick="addInputTeacher()"><div class="counter-add-plus"></div></div>
+                        <div class="counter-add-circle" onclick="addInputTeacher()">
+                            <div class="counter-add-plus"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="btn-next">
@@ -190,7 +203,8 @@
                         fill="black"/>
                     </svg> -->
                 </h1>
-                <div class="info-text">Добавте название классов вашей школы, укажите максимальное кол-во уроков в день, которое может быть у соответствующего класса, а так же кол-во учебных дней в неделю</div>
+                <div class="info-text">Добавте название классов вашей школы, укажите максимальное кол-во уроков в день,
+                    которое может быть у соответствующего класса, а так же кол-во учебных дней в неделю</div>
                 <div class="help-button">
                     <a class="sub-btn pas-btn" onclick="delAllInput('input-classes-')">Удалить все</a>
                 </div>
@@ -198,9 +212,11 @@
                     <div id="input-classes">
                         <div id="input-classes-0" class="item">
                             <div class="input-classes">
-                                    <input type="text" class="classes-name-number" name="class_number" value="" placeholder="5" pattern="[0-9]{1,2}" required>
-                                    <input type="text" class="classes-name-letter" name="class_letter" value="" placeholder="А" pattern="[А-Яа-я]{1}" required>
-                                    <!-- <div>
+                                <input type="text" class="classes-name-number" name="class_number" value=""
+                                    placeholder="5" pattern="[0-9]{1,2}" required>
+                                <input type="text" class="classes-name-letter" name="class_letter" value=""
+                                    placeholder="А" pattern="[А-Яа-я]{1}" required>
+                                <!-- <div>
                                         <span class="description-text">кол-во уроков в день:</span>
                                         <select class="choose-count" name="classes-max-lessons" required title="кол-во уроков в день..." data-size="5">
                                             <option value="4" selected>4</option>
@@ -217,20 +233,22 @@
                                             <option value="8">8</option>
                                         </select>
                                     </div> -->
-                                    <div>
-                                        <span class="description-text">кол-во уч. дней в неделю:</span>
-                                        <select name="classes-study-day" class="choose-count" required>
-                                            <option value="5" selected>5</option>
-                                            <option value="6">6</option>
-                                        </select>
-                                    </div>
+                                <div>
+                                    <span class="description-text">кол-во уч. дней в неделю:</span>
+                                    <select name="classes-study-day" class="choose-count" required>
+                                        <option value="5" selected>5</option>
+                                        <option value="6">6</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="psevdo-trash"></div>
                         </div>
                     </div>
                     <div class="item">
                         <div class="input-psevdo"></div>
-                        <div class="counter-add-circle" onclick="addInputClasses()"><div class="counter-add-plus"></div></div>
+                        <div class="counter-add-circle" onclick="addInputClasses()">
+                            <div class="counter-add-plus"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="btn-next">
@@ -249,10 +267,11 @@
                         fill="black"/>
                     </svg> -->
                 </h1>
-                <div class="info-text">Сперва - выберите класс, затем определите преподавателей и предметы, которые они будут вести у этого класса, а так же укажите количество этих предметов в неделю</div>
+                <div class="info-text">Сперва - выберите класс, затем определите преподавателей и предметы, которые они
+                    будут вести у этого класса, а так же укажите количество этих предметов в неделю</div>
                 <div>
                     <p class="standart-p">Выберите класс ниже:</p>
-                    <div id = "avaliable-classes" class="avaliable-classes"></div>
+                    <div id="avaliable-classes" class="avaliable-classes"></div>
                 </div>
                 <div id="box-courses" class="boxer"></div>
                 <div class="btn-next">
@@ -284,8 +303,8 @@
             </section> -->
             <div id="loading_box" class="preloader">
                 <div class="preloader__row">
-                  <div class="preloader__item"></div>
-                  <div class="preloader__item"></div>
+                    <div class="preloader__item"></div>
+                    <div class="preloader__item"></div>
                 </div>
             </div>
             <section class="landing-choose-finish">
@@ -308,19 +327,18 @@
             </section>
         </form>
     </div>
-  </body>
-  {% block javascript %}
-  <script src="{% static 'lending/js/jquery 3.5.1/jquery.min.js' %}"></script>
-  <script src="{% static 'lending/js/bootstrap/bootstrap.bundle.js' %}"></script>
-  <script src="{% static 'lending/js/bootstrap/bootstrap-select.min.js' %}"></script>
-  <script src="{% static 'lending/js/ajax.js' %}"></script>
-  <script src="{% static 'lending/js/subjects.js' %}"></script>
-  <script src="{% static 'lending/js/teachers.js' %}"></script>
-  <script src="{% static 'lending/js/classes.js' %}"></script>
-  <script src="{% static 'lending/js/courses.js' %}"></script>
-  <script src="{% static 'lending/js/user_info.js' %}"></script>
-  <script src="{% static 'lending/js/main.js' %}"></script>
-  {% endblock javascript %}
+</body>
+{% block javascript %}
+<script src="{% static 'lending/js/jquery 3.5.1/jquery.min.js' %}"></script>
+<script src="{% static 'lending/js/bootstrap/bootstrap.bundle.js' %}"></script>
+<script src="{% static 'lending/js/bootstrap/bootstrap-select.min.js' %}"></script>
+<script src="{% static 'lending/js/ajax.js' %}"></script>
+<script src="{% static 'lending/js/subjects.js' %}"></script>
+<script src="{% static 'lending/js/teachers.js' %}"></script>
+<script src="{% static 'lending/js/classes.js' %}"></script>
+<script src="{% static 'lending/js/courses.js' %}"></script>
+<script src="{% static 'lending/js/user_info.js' %}"></script>
+<script src="{% static 'lending/js/main.js' %}"></script>
+{% endblock javascript %}
+
 </html>
-
-

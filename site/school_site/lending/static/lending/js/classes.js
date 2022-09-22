@@ -1,21 +1,21 @@
 let classes = 0;
 
 
-function get_number_class(value){
-    if (value.length === 3){
-        return value.slice(0,2)
+function get_number_class(value) {
+    if (value.length === 3) {
+        return value.slice(0, 2)
     } if (value.length === 2) {
-        return value.slice(0,1)
+        return value.slice(0, 1)
     } else {
         RangeError('Ошибка в кол-ве символов в классе', value);
     }
 };
 
-function get_letter_class(value){
-    if (value.length === 3){
-        return value.slice(2,3)
+function get_letter_class(value) {
+    if (value.length === 3) {
+        return value.slice(2, 3)
     } if (value.length === 2) {
-        return value.slice(1,2)
+        return value.slice(1, 2)
     } else {
         RangeError('Ошибка в кол-ве символов в классе', value);
     }
@@ -25,11 +25,11 @@ function get_letter_class(value){
  * @name addInputClasses
  * @description create html element div.
  */
- function addInputClasses(class_name = '', count_selected = '') {
+function addInputClasses(class_name = '', count_selected = '') {
     let res = ++classes;
     let profile = document.getElementById('input-classes');
     let div = document.createElement('div');
-    
+
     let class_number = '';
     let class_letter = '';
     if (class_name != '') {
@@ -45,17 +45,17 @@ function get_letter_class(value){
         option_selected = '<option value="5">5</option> \
                            <option value="6" selected>6</option>'
     };
-    
+
 
     div.id = 'input-classes-' + res;
     div.classList.add('item');
     div.innerHTML = '<div class="input-classes"> \
-                        <input type="text" name="class_number" class="classes-name-number" value="' + class_number +'" placeholder="5" pattern="[0-9]{1,2}" required> \
-                        <input type="text" name="class_letter" class="classes-name-letter" value="' + class_letter +'" placeholder="А" pattern="[А-Яа-я]{1}" required> \
+                        <input type="text" name="class_number" class="classes-name-number" value="' + class_number + '" placeholder="5" pattern="[0-9]{1,2}" required> \
+                        <input type="text" name="class_letter" class="classes-name-letter" value="' + class_letter + '" placeholder="А" pattern="[А-Яа-я]{1}" required> \
                         <div> \
                             <span class="description-text">кол-во уч. дней в неделю:</span> \
                             <select name="classes-study-day" class="choose-count" data-width="50px" required> \
-                            ' + option_selected +'\
+                            ' + option_selected + '\
                             </select> \
                         </div> \
                     </div> \
@@ -68,24 +68,24 @@ function get_letter_class(value){
     $('.choose-count').selectpicker('refresh');
 
     let scroll_to_bottom = document.getElementsByClassName('boxer')[2];
-	scrollBottom(scroll_to_bottom);
-  };
+    scrollBottom(scroll_to_bottom);
+};
 
 
-  /**
- * @name getClasses
- * @description create ste of classes which input user.
- * @returns {set} classes
- */
+/**
+* @name getClasses
+* @description create ste of classes which input user.
+* @returns {set} classes
+*/
 function getClasses() {
     let i = 0;
     let classes = new Set();
     while (i < 1000) {
-        let doc = document.getElementById('input-classes-' + String(i)) ;
+        let doc = document.getElementById('input-classes-' + String(i));
         if (doc) {
             classes.add(String(doc.getElementsByClassName('classes-name-number')[0].value) + doc.getElementsByClassName('classes-name-letter')[0].value);
         }
-        i+=1;
+        i += 1;
     }
     return classes;
 };
@@ -108,7 +108,7 @@ function checkSelectionClasses() {
     // add
     let new_buttons = new Set();
     let update_buttons = document.getElementsByClassName('class-btn');
-    for (let button of update_buttons){
+    for (let button of update_buttons) {
         new_buttons.add(button.value);
     };
 
@@ -124,7 +124,7 @@ function checkSelectionClasses() {
             document.getElementById('avaliable-classes').appendChild(button);
         };
     };
-    check_active_classes(); 
+    check_active_classes();
 };
 
 function remove_class() {

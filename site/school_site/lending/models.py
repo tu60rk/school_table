@@ -18,12 +18,3 @@ class DataForAlgorithm(models.Model):
     subject_name = models.CharField(max_length=50)
     count_lessons_per_week = models.IntegerField()
     count_study_day = models.IntegerField()
-
-
-# hash	
-# number_load	
-# class_number	
-# teacher_fio	
-# subject_name	
-# count_lessons_per_week	
-# count_study_day
